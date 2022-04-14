@@ -9,7 +9,6 @@ public interface Map<K, V> {
 
     void delete(K key);
 
-    /// devuelve la cantidad de elementos
     int size();
 
     boolean isEmpty();

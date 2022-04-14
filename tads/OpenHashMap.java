@@ -1,96 +1,78 @@
 package tads;
 
-import java.util.ArrayList;
 
 public class OpenHashMap<K, V> implements Map<K, V> {
-    // ArrayList<Pair>[] arr
-    private Object[] arr;
-    private int elemCount;
+    //List<Pair<K,V>>[] table;
+    private Object[] table;
+    private int size;
 
-    private class Pair {
-        public K key;
-        public V value;
 
-        Pair(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        public Pair(K key) {
-            this.key = key;
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            return this.key.equals(((Pair) other).key);
-        }
+    public OpenHashMap(int expectedSize) {
+        this.table = new Object[expectedSize * 2 - 1];
+        this.size = 0;
     }
+
+    private int findPos(K key) {
+        int h = key.hashCode();
+        int pos = h % this.table.length;
+        return pos;
+    }
+    
 
     @Override
     public void insert(K key, V value) {
-        this.elemCount++;
+        this.size++;
         int pos = this.findPos(key);
-        var list = (ArrayList<Pair>) this.arr[pos];
+        List<Pair<K,V>> list = (List<Pair<K,V>>)this.table[pos];
         if (list == null) {
-            list = new ArrayList<Pair>();
-            arr[pos] = list;
+            list = new List<Pair<K,V>>();
+            table[pos] = list;
+            return;
         }
-        Pair p = new Pair(key, value);
-        if (list.contains(p)) {
-            this.elemCount--;
-            list.remove(p);
+        Pair<K,V> pair = new Pair<K,V>(key, value);
+        if (list.contains(pair)) {
+            this.size--;
+            list.delete(pair);
         }
-        list.add(p);
+        list.insert(pair);
     }
 
     @Override
     public boolean contains(K key) {
         int pos = this.findPos(key);
-        var list = (ArrayList<Pair>) this.arr[pos];
-        if (list == null) {
-            return false;
-        }
-        Pair p = new Pair(key);
-        return list.contains(p);
+        List<Pair<K,V>> list = (List<Pair<K,V>>)this.table[pos];
+        return list.contains(new Pair<K,V>(key));
     }
 
     @Override
     public V get(K key) throws Exception {
-        // TODO Auto-generated method stub
+        int pos = this.findPos(key);
+        List<Pair<K,V>> list = (List<Pair<K,V>>)this.table[pos];
+        if(!list.contains(new Pair<K,V>(key))){
+            throw new Exception("La tabla no contiene el elemento: " + key.toString());
+        }
+
         return null;
-        /*
-         * if(!list.contains(p)){
-         * throw new Exception(
-         * "la tabla no contiene al emeneto" + key.toString());
-         * }
-         */
     }
 
     @Override
     public void delete(K key) {
-        // TODO Auto-generated method stub
-
+        if (!this.contains(key)) {
+            return;
+        }
+        int pos = this.findPos(key);
+        List<Pair<K,V>> list = (List<Pair<K,V>>)this.table[pos];
+        this.size--;
+        list.delete(new Pair<K,V>(key));
     }
 
     @Override
     public int size() {
-        return this.elemCount;
+        return this.size;
     }
 
     @Override
     public boolean isEmpty() {
-        return this.elemCount == 0;
+        return this.size == 0;
     }
-
-    public OpenHashMap(int expectedSize) {
-        this.arr = new Object[expectedSize * 2 - 1];
-        this.elemCount = 0;
-    }
-
-    private int findPos(K key) {
-        int h = key.hashCode();
-        int pos = h % this.arr.length;
-        return pos;
-    }
-
 }
