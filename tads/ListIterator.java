@@ -17,6 +17,11 @@ public class ListIterator<T> implements Iterator<T> {
       return elem;
     }
 
+    @Override
+    public void remove() {
+      root.next = root.next.next;
+    }
+
     public ListIterator(Node<T> start) {
       root = start;
     }

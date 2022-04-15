@@ -51,7 +51,6 @@ public class OpenHashMap<K, V> implements Map<K, V> {
         if(!list.contains(new Pair<K,V>(key))){
             throw new Exception("La tabla no contiene el elemento: " + key.toString());
         }
-
         return null;
     }
 

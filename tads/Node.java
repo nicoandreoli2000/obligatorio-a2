@@ -8,4 +8,10 @@ public class Node<T> {
         this.data = elem;
         this.next = null;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return this.data.equals(((Node<T>) other).data);
+    }
 }
+ 

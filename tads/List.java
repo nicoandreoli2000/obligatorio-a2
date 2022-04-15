@@ -30,7 +30,6 @@ public class List<T> implements Iterable<T> {
   }
 
   public void delete(T elem) {
-    //TODO: check .remove() method
     Iterator<T> it = this.iterator();
     while (it.hasNext()) {
       if (it.next().equals(elem)) {
@@ -42,7 +41,7 @@ public class List<T> implements Iterable<T> {
   }
 
   @Override
-  public Iterator<T> iterator() {
+  public ListIterator<T> iterator() {
     return new ListIterator<T>(root);
   }
 
