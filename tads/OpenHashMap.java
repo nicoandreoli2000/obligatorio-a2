@@ -40,7 +40,8 @@ public class OpenHashMap<K, V> implements Map<K, V> {
     public boolean contains(K key) {
         int pos = this.findPos(key);
         List<Pair<K,V>> list = (List<Pair<K,V>>)this.table[pos];
-        return list.contains(new Pair<K,V>(key));
+        Pair<K,V> pair = new Pair<K,V>(key);
+        return list == null ? false : list.contains(pair);
     }
 
     @Override

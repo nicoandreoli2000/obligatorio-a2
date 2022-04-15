@@ -51,6 +51,14 @@ public class List<T> implements Iterable<T> {
     throw new Exception("La lista no contiene el elemento: " + elem.toString());
   }
 
+  public int size() {
+    return this.size;
+  }
+  
+  public boolean isEmpty() {
+    return this.size == 0;
+  }
+
   @Override
   public Iterator<T> iterator() {
     return new ListIterator<T>(root);
