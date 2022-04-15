@@ -2,17 +2,18 @@ import tads.OpenHashMap;
 
 public class Main {
   public static void main(String[] args) {
-    OpenHashMap<Integer,String> map = new OpenHashMap<Integer, String>(10);
-    map.insert(1, "uno");
-    map.insert(2, "dos");
-    map.insert(3, "tres");
+    Ejercicio1();
+    Ejercicio2();
+    Ejercicio3();
+  }
 
-    try{
-      System.out.println("key 1: " + map.get(1));
-      System.out.println("key 2: " + map.get(2));
-      System.out.println("key 3: " + map.get(3));
-    } catch(Exception e) {
-      System.out.println("ERROR: " + e.getMessage());
-    }
+  public static void Ejercicio1() {
+    System.out.println("Ej.1");
+  }
+  public static void Ejercicio2() {
+    System.out.println("Ej.2");
+  }
+  public static void Ejercicio3() {
+    System.out.println("Ej.3");
   }
 }
