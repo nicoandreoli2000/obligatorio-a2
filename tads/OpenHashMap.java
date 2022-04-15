@@ -27,7 +27,6 @@ public class OpenHashMap<K, V> implements Map<K, V> {
         if (list == null) {
             list = new List<Pair<K,V>>();
             table[pos] = list;
-            return;
         }
         Pair<K,V> pair = new Pair<K,V>(key, value);
         if (list.contains(pair)) {
@@ -48,10 +47,8 @@ public class OpenHashMap<K, V> implements Map<K, V> {
     public V get(K key) throws Exception {
         int pos = this.findPos(key);
         List<Pair<K,V>> list = (List<Pair<K,V>>)this.table[pos];
-        if(!list.contains(new Pair<K,V>(key))){
-            throw new Exception("La tabla no contiene el elemento: " + key.toString());
-        }
-        return null;
+        Pair<K,V> pair = new Pair<K,V>(key);
+        return list.get(pair).value;
     }
 
     @Override

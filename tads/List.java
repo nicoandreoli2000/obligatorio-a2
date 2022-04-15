@@ -40,8 +40,19 @@ public class List<T> implements Iterable<T> {
     }
   }
 
+  public T get(T elem) throws Exception {
+    Iterator<T> it = this.iterator();
+    while (it.hasNext()) {
+      T next = it.next();
+      if (next.equals(elem)) {
+        return next;
+      }
+    }
+    throw new Exception("La lista no contiene el elemento: " + elem.toString());
+  }
+
   @Override
-  public ListIterator<T> iterator() {
+  public Iterator<T> iterator() {
     return new ListIterator<T>(root);
   }
 
