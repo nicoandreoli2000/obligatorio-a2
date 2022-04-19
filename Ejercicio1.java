@@ -21,6 +21,9 @@ public class Ejercicio1 {
             if (i % 2 == 0) {
                 if (!hash.contains(pos)) {
                     amount++;
+                } else {
+                    hash.delete(pos);
+
                 }
             } else {
                 hash.insert(pos, 1);
