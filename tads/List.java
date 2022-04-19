@@ -18,7 +18,6 @@ public class List<T> implements Iterable<T> {
     size++;
   }
 
-
   public boolean contains(T elem) {
     Iterator<T> it = this.iterator();
     while (it.hasNext()) {
@@ -30,13 +29,22 @@ public class List<T> implements Iterable<T> {
   }
 
   public void delete(T elem) {
-    Iterator<T> it = this.iterator();
-    while (it.hasNext()) {
-      if (it.next().equals(elem)) {
-        it.remove();
+    if (root == null) {
+      return;
+    }
+    if (root.data.equals(elem)) {
+      root = root.next;
+    }
+    Node<T> pre = root;
+    Node<T> post = root.next;
+    while (post != null) {
+      if (post.data.equals(elem)) {
+        pre.next = post.next;
         size--;
         return;
       }
+      pre = pre.next;
+      post = post.next;
     }
   }
 
@@ -54,7 +62,7 @@ public class List<T> implements Iterable<T> {
   public int size() {
     return this.size;
   }
-  
+
   public boolean isEmpty() {
     return this.size == 0;
   }
