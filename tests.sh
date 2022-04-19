@@ -45,7 +45,7 @@ do
           fi
           T="$(($(date +%s)-T))"
           echo "$NRO_EJERCICIO : $filename : $T segundos"
-          diff -Z -B ${filename/in/out} ${filename/in/own} > /dev/null
+          diff -B ${filename/in/out} ${filename/in/own} > /dev/null
           if [ $? -eq 0 ]
           then
             echo -e "\e[32m${filename} - OK\e[0m"
