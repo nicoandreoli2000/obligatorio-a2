@@ -34,6 +34,7 @@ public class List<T> implements Iterable<T> {
     }
     if (root.data.equals(elem)) {
       root = root.next;
+      return;
     }
     Node<T> pre = root;
     Node<T> post = root.next;

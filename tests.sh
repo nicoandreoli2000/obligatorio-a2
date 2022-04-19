@@ -9,7 +9,7 @@ mkdir "$BUILD_FOLDER"
 
 for NRO_EJERCICIO in {1..13}
 do
-    TEST_FOLDER=./Pruebas/ejercicio$NRO_EJERCICIO
+    TEST_FOLDER=./pruebas/ejercicio$NRO_EJERCICIO
     JAVAFILE=$STUDENT_FOLDER/Ejercicio$NRO_EJERCICIO.java
     CPPFILE=$STUDENT_FOLDER/ejercicio$NRO_EJERCICIO.cpp
 
