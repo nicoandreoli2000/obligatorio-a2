@@ -7,7 +7,7 @@ public class Ejercicio1 {
         try (var in = new Scanner(System.in)) {
             Integer n = Integer.parseInt(in.nextLine());
             String s = in.nextLine();
-            System.out.println(ejercicio1(n,s));
+            System.out.println(ejercicio1(n, s));
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
