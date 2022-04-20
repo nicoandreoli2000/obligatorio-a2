@@ -1,11 +1,9 @@
 package tads;
 
-
 public class OpenHashMap<K, V> implements Map<K, V> {
-    //List<Pair<K,V>>[] table;
+    // List<Pair<K,V>>[] table;
     private Object[] table;
     private int size;
-
 
     public OpenHashMap(int expectedSize) {
         this.table = new Object[expectedSize * 2 - 1];
@@ -17,18 +15,17 @@ public class OpenHashMap<K, V> implements Map<K, V> {
         int pos = h % this.table.length;
         return pos;
     }
-    
 
     @Override
     public void insert(K key, V value) {
         this.size++;
         int pos = this.findPos(key);
-        List<Pair<K,V>> list = (List<Pair<K,V>>)this.table[pos];
+        List<Pair<K, V>> list = (List<Pair<K, V>>) this.table[pos];
         if (list == null) {
-            list = new List<Pair<K,V>>();
+            list = new List<Pair<K, V>>();
             table[pos] = list;
         }
-        Pair<K,V> pair = new Pair<K,V>(key, value);
+        Pair<K, V> pair = new Pair<K, V>(key, value);
         if (list.contains(pair)) {
             this.size--;
             list.delete(pair);
@@ -39,16 +36,16 @@ public class OpenHashMap<K, V> implements Map<K, V> {
     @Override
     public boolean contains(K key) {
         int pos = this.findPos(key);
-        List<Pair<K,V>> list = (List<Pair<K,V>>)this.table[pos];
-        Pair<K,V> pair = new Pair<K,V>(key);
+        List<Pair<K, V>> list = (List<Pair<K, V>>) this.table[pos];
+        Pair<K, V> pair = new Pair<K, V>(key);
         return list == null ? false : list.contains(pair);
     }
 
     @Override
     public V get(K key) throws Exception {
         int pos = this.findPos(key);
-        List<Pair<K,V>> list = (List<Pair<K,V>>)this.table[pos];
-        Pair<K,V> pair = new Pair<K,V>(key);
+        List<Pair<K, V>> list = (List<Pair<K, V>>) this.table[pos];
+        Pair<K, V> pair = new Pair<K, V>(key);
         return list.get(pair).value;
     }
 
@@ -58,9 +55,9 @@ public class OpenHashMap<K, V> implements Map<K, V> {
             return;
         }
         int pos = this.findPos(key);
-        List<Pair<K,V>> list = (List<Pair<K,V>>)this.table[pos];
+        List<Pair<K, V>> list = (List<Pair<K, V>>) this.table[pos];
         this.size--;
-        list.delete(new Pair<K,V>(key));
+        list.delete(new Pair<K, V>(key));
     }
 
     @Override

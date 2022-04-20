@@ -18,35 +18,45 @@ public class List<T> implements Iterable<T> {
     size++;
   }
 
-
   public boolean contains(T elem) {
-    Iterator<T> it = this.iterator();
-    while (it.hasNext()) {
-      if (it.next().equals(elem)) {
+    Node<T> rec = this.root;
+    while (rec != null) {
+      if (rec.data.equals(elem)) {
         return true;
       }
+      rec = rec.next;
     }
     return false;
   }
 
   public void delete(T elem) {
-    Iterator<T> it = this.iterator();
-    while (it.hasNext()) {
-      if (it.next().equals(elem)) {
-        it.remove();
+    if (root == null) {
+      return;
+    }
+    if (root.data.equals(elem)) {
+      root = root.next;
+      return;
+    }
+    Node<T> pre = root;
+    Node<T> post = root.next;
+    while (post != null) {
+      if (post.data.equals(elem)) {
+        pre.next = post.next;
         size--;
         return;
       }
+      pre = pre.next;
+      post = post.next;
     }
   }
 
   public T get(T elem) throws Exception {
-    Iterator<T> it = this.iterator();
-    while (it.hasNext()) {
-      T next = it.next();
-      if (next.equals(elem)) {
-        return next;
+    Node<T> rec = this.root;
+    while (rec != null) {
+      if (rec.data.equals(elem)) {
+        return rec.data;
       }
+      rec = rec.next;
     }
     throw new Exception("La lista no contiene el elemento: " + elem.toString());
   }
@@ -54,14 +64,14 @@ public class List<T> implements Iterable<T> {
   public int size() {
     return this.size;
   }
-  
+
   public boolean isEmpty() {
     return this.size == 0;
   }
 
   @Override
   public Iterator<T> iterator() {
-    return new ListIterator<T>(root);
+    // TODO Auto-generated method stub
+    return null;
   }
-
 }
