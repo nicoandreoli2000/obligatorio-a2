@@ -17,16 +17,40 @@ public class Ejercicio1 {
         var hash = new OpenHashMap<Integer, Integer>(n);
         int amount = 0;
         for (int i = 0; i < s.length(); i++) {
-            var pos = (int) s.charAt(i);
+            int pos = (int) Character.toLowerCase(s.charAt(i));
             if (i % 2 == 0) {
                 if (!hash.contains(pos)) {
                     amount++;
                 } else {
-                    hash.delete(pos);
+                    int value = 1;
+                    try {
+                        value = hash.get(pos);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
+                    if (value > 1) {
+                        hash.replace(pos, value - 1);
+                    } else {
+                        hash.delete(pos);
+                    }
                 }
             } else {
-                hash.insert(pos, 1);
+                int value = 1;
+                if (hash.contains(pos)) {
+
+                    try {
+                        value = hash.get(pos);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (value > 1) {
+                    hash.replace(pos, value - 1);
+                } else {
+                    hash.insert(pos, value);
+                }
             }
         }
         return amount;
