@@ -14,11 +14,12 @@ public class Ejercicio1 {
     }
 
     public static Integer ejercicio1(Integer n, String s) {
-        var hash = new OpenHashMap<Integer, Integer>(n);
+        var hash = new OpenHashMap<Character, Integer>(n);
         int amount = 0;
         for (int i = 0; i < s.length(); i++) {
-            int pos = (int) Character.toLowerCase(s.charAt(i));
+            char pos = s.charAt(i);
             if (i % 2 == 0) {
+                pos = Character.toLowerCase(pos);
                 if (!hash.contains(pos)) {
                     amount++;
                 } else {
