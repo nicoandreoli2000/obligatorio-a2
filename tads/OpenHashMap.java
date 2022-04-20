@@ -56,8 +56,8 @@ public class OpenHashMap<K, V> implements Map<K, V> {
         }
         int pos = this.findPos(key);
         List<Pair<K, V>> list = (List<Pair<K, V>>) this.table[pos];
-        this.size--;
         list.delete(new Pair<K, V>(key));
+        this.size--;
     }
 
     @Override
