@@ -18,7 +18,7 @@ public class Ejercicio1 {
         int amount = 0;
         for (int i = 0; i < s.length(); i++) {
             char pos = s.charAt(i);
-            if (i % 2 == 0) {
+            if (i % 2 != 0) {
                 pos = Character.toLowerCase(pos);
                 if (!hash.contains(pos)) {
                     amount++;
