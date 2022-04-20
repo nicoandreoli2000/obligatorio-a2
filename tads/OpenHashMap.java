@@ -16,17 +16,6 @@ public class OpenHashMap<K, V> implements Map<K, V> {
         return pos;
     }
 
-    public void replace(K key, V value) {
-        int pos = this.findPos(key);
-        List<Pair<K, V>> list = (List<Pair<K, V>>) this.table[pos];
-        Pair<K, V> oldPair = new Pair(key);
-        if (list.contains(oldPair)) {
-            Pair<K, V> newPair = new Pair<K, V>(key, value);
-            list.delete(oldPair);
-            list.insert(newPair);
-        }
-    }
-
     @Override
     public void insert(K key, V value) {
         this.size++;
