@@ -33,6 +33,7 @@ public class List<T> implements Iterable<T> {
     if (root == null) {
       return;
     }
+    this.size--;
     if (root.data.equals(elem)) {
       root = root.next;
       return;
