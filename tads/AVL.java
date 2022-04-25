@@ -1,9 +1,5 @@
 package tads; // package TAD;
 
-import java.net.SocketTimeoutException;
-
-import javax.swing.SpringLayout;
-
 public class AVL<T extends Comparable<T>> {
   AVLNode root;
 
