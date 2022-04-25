@@ -1,4 +1,8 @@
-package TAD;
+package tads; // package TAD;
+
+import java.net.SocketTimeoutException;
+
+import javax.swing.SpringLayout;
 
 public class AVL<T extends Comparable<T>> {
   AVLNode root;
@@ -27,11 +31,38 @@ public class AVL<T extends Comparable<T>> {
   }
 
   public void delete(T data) {
-    delete(data, root);
+    root = delete(data, root);
   }
 
   public boolean exists(T data) {
     return exists(data, root);
+  }
+
+  public void inOrderPrint() {
+    inOrderPrint(root);
+  }
+
+  public T minimo() {
+    return minimo(root).data;
+  }
+
+  public T maximo() {
+    return maximo(root).data;
+  }
+
+  public T get() {
+    return get(root);
+  }
+
+  public void insertT(AVLNode node) {
+    root = insertT(node, root);
+  }
+
+  private T get(AVLNode node) {
+    if (node == null)
+      return null;
+    else
+      return node.data;
   }
 
   private int height(AVLNode node) {
@@ -49,16 +80,28 @@ public class AVL<T extends Comparable<T>> {
   }
 
   private AVLNode insert(T data, AVLNode node) {
-    if (node == null)
+    System.out.println("data: "+ data);
+    System.out.println("");
+    System.out.println("node:");
+    inOrderPrint(node);
+    System.out.println("");
+    if (node == null){
+      System.out.println("\n agrego \n");
       return new AVLNode(data);
+
+    }
     if (data.equals(node.data))
       return node;
     if (data.compareTo(node.data) < 0) {
+      System.out.println("\n iz \n");
       node.left = insert(data, node.left);
     } else if (data.compareTo(node.data) > 0) {
+      System.out.println("\n der \n");
       node.right = insert(data, node.right);
     }
-
+    System.out.println("imprimir:");
+    inOrderPrint(node);
+    System.out.println("");
     node.height = max(height(node.left), height(node.right)) + 1;
     int balance = balanceFactor(node);
 
@@ -80,29 +123,37 @@ public class AVL<T extends Comparable<T>> {
       return node;
   }
 
-  private void delete(T data, AVLNode node) {
-    boolean b = false;
-    if (node == null)
-      return;
-    else if (data.compareTo(node.data) < 0) {
-      delete(data, node.left);
+  private AVLNode delete(T data, AVLNode node) {
+    //System.out.println("data: " + data +", node: ");
+    //inOrderPrint(node);
+    boolean b = true;
+    if (node == null) {
+      return null;
+    } else if (data.compareTo(node.data) < 0) {
+      node.left = delete(data, node.left);
     } else if (data.compareTo(node.data) > 0) {
-      delete(data, node.right);
-    } else if (data.equals(node.data)) {
+      node.right = delete(data, node.right);
+    } else if (data.compareTo(node.data) == 0) {
+      //System.out.println("iguales\n");
       if (node.left == null && node.right == null) {
-        node = null;
+        node = node.left;
         b = false;
       } else if (node.left != null && node.right != null) {
+        //System.out.println("2\n");
+
         var node_r = node.right;
         node = node.left;
-        insertT(node_r, node);
-        b = true;
+
+        node = insertT(node_r, node);
+        //System.out.println("");
+       //inOrderPrint(node);
+        //System.out.println("");
+
+        //System.out.println("2\n");
       } else if (node.left != null) {
         node = node.left;
-        b = true;
-      } else {
+      } else if (node.right != null) {
         node = node.right;
-        b = true;
       }
     }
     if (b) {
@@ -112,33 +163,47 @@ public class AVL<T extends Comparable<T>> {
       if (balance > 1) {
         // izquierda-izquierda
         if (data.compareTo(node.left.data) < 0)
-          rightRotation(node);
+          return rightRotation(node);
         // izquierda-derecha
         else
-          leftRightRotation(node);
+          return leftRightRotation(node);
       } else if (balance < -1) {
         // derecha-derecha
         if (data.compareTo(node.right.data) > 0)
-          leftRotation(node);
+          return leftRotation(node);
         // derecha-izquierda
         else
-          rightLeftRotation(node);
-      }
+          return rightLeftRotation(node);
+      } else
+        return node;
     }
-
+    return node;
   }
 
-  private void insertT(AVLNode node, AVLNode root) {
-    if (node == null)
-      return;
-    else {
-      insert(node.data);
-      insertT(node.left, root);
-      insertT(node.right, root);
+  private AVLNode insertT(AVLNode node, AVLNode root) {
+    // System.out.println("node:\n");
+    // inOrderPrint(node);
+    // System.out.println("");
+    // System.out.println("root:\n");
+    // inOrderPrint(root);
+    if (node == null) {
+      //System.out.println("\nnull\n");
+      return null;
+    } else {
+      root = insert(node.data, root);
+      AVLNode aux = insertT(node.left, root);
+      if (aux != null)
+        root = aux;
+      aux = insertT(node.right, root);
+      if (aux != null)
+        root = aux;
+      return root;
     }
   }
 
   private boolean exists(T data, AVLNode node) {
+    if (node == null)
+      return false;
     if (node.data.equals(data))
       return true;
     else
@@ -165,7 +230,7 @@ public class AVL<T extends Comparable<T>> {
 
     z.height = max(height(z.left), height(z.right)) + 1;
     y.height = max(height(y.left), height(y.right)) + 1;
-
+    
     return y;
   }
 
@@ -212,10 +277,31 @@ public class AVL<T extends Comparable<T>> {
     return rightRotation(z);
   }
 
-  private AVLNode minimo(AVLNode node){
-    if(node == null) return null;
-    else if(node.left==null) return node;
-    else return minimo(node.left);
+  private AVLNode minimo(AVLNode node) {
+    if (node == null)
+      return null;
+    else if (node.left == null)
+      return node;
+    else
+      return minimo(node.left);
+  }
+
+  private AVLNode maximo(AVLNode node) {
+    if (node == null)
+      return null;
+    else if (node.right == null)
+      return node;
+    else
+      return maximo(node.right);
+  }
+
+  private void inOrderPrint(AVLNode node) {
+    if (node == null) {
+      return;
+    }
+    inOrderPrint(node.left);
+    System.out.println(node.data);
+    inOrderPrint(node.right);
   }
 
 }
