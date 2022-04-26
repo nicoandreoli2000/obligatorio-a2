@@ -76,28 +76,14 @@ public class AVL<T extends Comparable<T>> {
   }
 
   private AVLNode insert(T data, AVLNode node) {
-    System.out.println("data: "+ data);
-    System.out.println("");
-    System.out.println("node:");
-    inOrderPrint(node);
-    System.out.println("");
-    if (node == null){
-      System.out.println("\n agrego \n");
+    if (node == null)
       return new AVLNode(data);
-
-    }
     if (data.equals(node.data))
       return node;
-    if (data.compareTo(node.data) < 0) {
-      System.out.println("\n iz \n");
+    if (data.compareTo(node.data) < 0)
       node.left = insert(data, node.left);
-    } else if (data.compareTo(node.data) > 0) {
-      System.out.println("\n der \n");
+    else if (data.compareTo(node.data) > 0)
       node.right = insert(data, node.right);
-    }
-    System.out.println("imprimir:");
-    inOrderPrint(node);
-    System.out.println("");
     node.height = max(height(node.left), height(node.right)) + 1;
     int balance = balanceFactor(node);
 
@@ -120,8 +106,6 @@ public class AVL<T extends Comparable<T>> {
   }
 
   private AVLNode delete(T data, AVLNode node) {
-    //System.out.println("data: " + data +", node: ");
-    //inOrderPrint(node);
     boolean b = true;
     if (node == null) {
       return null;
@@ -130,22 +114,13 @@ public class AVL<T extends Comparable<T>> {
     } else if (data.compareTo(node.data) > 0) {
       node.right = delete(data, node.right);
     } else if (data.compareTo(node.data) == 0) {
-      //System.out.println("iguales\n");
       if (node.left == null && node.right == null) {
         node = node.left;
         b = false;
       } else if (node.left != null && node.right != null) {
-        //System.out.println("2\n");
-
         var node_r = node.right;
         node = node.left;
-
         node = insertT(node_r, node);
-        //System.out.println("");
-       //inOrderPrint(node);
-        //System.out.println("");
-
-        //System.out.println("2\n");
       } else if (node.left != null) {
         node = node.left;
       } else if (node.right != null) {
@@ -177,13 +152,7 @@ public class AVL<T extends Comparable<T>> {
   }
 
   private AVLNode insertT(AVLNode node, AVLNode root) {
-    // System.out.println("node:\n");
-    // inOrderPrint(node);
-    // System.out.println("");
-    // System.out.println("root:\n");
-    // inOrderPrint(root);
     if (node == null) {
-      //System.out.println("\nnull\n");
       return null;
     } else {
       root = insert(node.data, root);
@@ -226,12 +195,13 @@ public class AVL<T extends Comparable<T>> {
 
     z.height = max(height(z.left), height(z.right)) + 1;
     y.height = max(height(y.left), height(y.right)) + 1;
-    
+
     return y;
   }
 
   private AVLNode leftRotation(AVLNode z) {
     var y = z.right;
+
     var y_l = y.left;
 
     y.left = z;
@@ -255,7 +225,7 @@ public class AVL<T extends Comparable<T>> {
     y.height = max(height(y.left), height(y.right)) + 1;
     x.height = max(height(x.left), height(y.right)) + 1;
 
-    return leftRotation(z);
+    return rightRotation(z);
   }
 
   private AVLNode rightLeftRotation(AVLNode z) {
@@ -270,7 +240,7 @@ public class AVL<T extends Comparable<T>> {
     y.height = max(height(y.left), height(y.right)) + 1;
     x.height = max(height(x.left), height(y.right)) + 1;
 
-    return rightRotation(z);
+    return leftRotation(z);
   }
 
   private AVLNode minimo(AVLNode node) {
