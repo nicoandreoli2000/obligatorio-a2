@@ -13,7 +13,7 @@ public class OpenHashMap<K, V> implements Map<K, V> {
     private int findPos(K key) {
         int h = key.hashCode();
         int pos = h % this.table.length;
-        return pos;
+        return Math.abs(pos);
     }
 
     @Override
