@@ -14,18 +14,18 @@ do
     CPPFILE=$STUDENT_FOLDER/ejercicio$NRO_EJERCICIO.cpp
 
     if [ -f "$JAVAFILE" ] || [ -f "$CPPFILE" ]; then
-        echo -e "\e[1;36m Comenzando pruebas para EJERCICIO $NRO_EJERCICIO \e[0m"
+        echo -e "\e[1;36m Comenzando pruebas para EJERCICIO $NRO_EJERCICIO "
         # echo "Compilando..."
         if [ -f "$CPPFILE" ]; then
           echo "Realizado en C++"
           if ! g++ $CPPFILE -o $BUILD_FOLDER/ejercicio$NRO_EJERCICIO.out; then
-            echo -e "\e[31mERROR en compilacion\e[0m"
+            echo -e "ERROR en compilacion"
             continue
           fi
         else 
           echo "Realizado en JAVA"
           if ! javac $JAVAFILE -d ./; then
-            echo -e "\e[31mERROR en compilacion\e[0m"
+            echo -e "ERROR en compilacion"
             continue
           fi
         fi
@@ -48,9 +48,9 @@ do
           diff -B ${filename/in/out} ${filename/in/own} > /dev/null
           if [ $? -eq 0 ]
           then
-            echo -e "\e[32m${filename} - OK\e[0m"
+            echo -e "${filename} - OK"
           else
-            echo -e "\e[31m${filename} - FAIL\e[0m"
+            echo -e "${filename} - FAIL"
           fi
         done
 
@@ -58,7 +58,7 @@ do
         find . -name "*.class" -type f -delete
         
     else 
-        echo -e "\e[31mEjericio $NRO_EJERCICIO NO REALIZADO\e[0m"
+        echo -e "Ejericio $NRO_EJERCICIO NO REALIZADO"
     fi
     printf "\n"
     # read -p "Presione una tecla para continuar"
