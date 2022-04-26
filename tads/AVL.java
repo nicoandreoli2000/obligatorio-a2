@@ -91,7 +91,6 @@ public class AVL<T extends Comparable<T>> {
       // izquierda-izquierda
       if (data.compareTo(node.left.data) < 0)
         return rightRotation(node);
-      // izquierda-derecha
       else
         return leftRightRotation(node);
     } else if (balance < -1) {
