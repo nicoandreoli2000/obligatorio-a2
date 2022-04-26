@@ -6,16 +6,16 @@ public class Ejercicio2 {
     public static void main(String[] args) throws Exception {
         var in = new Scanner(System.in);
         Integer n = Integer.parseInt(in.nextLine());
-        // System.out.println(ejercicio2(n, in));
+        System.out.println(ejercicio2(n, in));
         in.close();
     }
 
-    public static String ejercicio2(Integer n, String[] s) throws Exception {
+    public static String ejercicio2(Integer n, Scanner in) throws Exception {
         var hash = new OpenHashMap<String, Integer>(n);
         int maxAmountOfPoints = 0;
         String personWithMaxAmountOfPointsFirst = "";
         for (int i = 0; i < n; i++) {
-            String line = s[i];
+            String line = in.nextLine();
             String[] arr = line.split(" ");
             String name = arr[0];
             int points = Integer.parseInt(arr[1]);
