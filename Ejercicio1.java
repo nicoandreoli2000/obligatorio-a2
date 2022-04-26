@@ -38,7 +38,7 @@ public class Ejercicio1 {
             } else {
                 if (hash.contains(pos)) {
                     try {
-                        value += hash.get(pos);
+                        value = hash.get(pos);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
