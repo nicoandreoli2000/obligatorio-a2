@@ -58,3 +58,6 @@ replay_pid*
 *.exe
 *.out
 *.app
+
+# Test files
+*.own.txt

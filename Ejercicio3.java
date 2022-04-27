@@ -13,6 +13,7 @@ public class Ejercicio3 {
             a.insert(next);
         }
         ejercicio3(k, a);
+        in.close();
     }
 
     public static void ejercicio3(Integer k, AVL<Integer> l) {
