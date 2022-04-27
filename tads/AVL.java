@@ -1,4 +1,4 @@
-package tads; // package TAD;
+package tads;
 
 public class AVL<T extends Comparable<T>> {
   AVLNode root;
@@ -79,11 +79,12 @@ public class AVL<T extends Comparable<T>> {
     if (node == null)
       return new AVLNode(data);
     if (data.equals(node.data))
-      return node;
-    if (data.compareTo(node.data) < 0)
+      node.right = insert(data, node.right);
+    else if (data.compareTo(node.data) < 0)
       node.left = insert(data, node.left);
     else if (data.compareTo(node.data) > 0)
       node.right = insert(data, node.right);
+    
     node.height = max(height(node.left), height(node.right)) + 1;
     int balance = balanceFactor(node);
 
@@ -96,7 +97,7 @@ public class AVL<T extends Comparable<T>> {
         return leftRightRotation(node);
     } else if (balance < -1) {
       // derecha-derecha
-      if (data.compareTo(node.right.data) > 0)
+      if (data.compareTo(node.right.data) >= 0)
         return leftRotation(node);
       // derecha-izquierda
       else
@@ -134,17 +135,21 @@ public class AVL<T extends Comparable<T>> {
       if (balance > 1) {
         // izquierda-izquierda
         if (data.compareTo(node.left.data) < 0)
-          return rightRotation(node);
+          //return rightRotation(node);
+          return leftRightRotation(node);
         // izquierda-derecha
         else
-          return leftRightRotation(node);
+          //return leftRightRotation(node);
+          return rightRotation(node);
       } else if (balance < -1) {
         // derecha-derecha
         if (data.compareTo(node.right.data) > 0)
-          return leftRotation(node);
+          //return leftRotation(node);
+          return rightLeftRotation(node);
         // derecha-izquierda
         else
-          return rightLeftRotation(node);
+          //return rightLeftRotation(node);
+          return leftRotation(node);
       } else
         return node;
     }
@@ -153,15 +158,11 @@ public class AVL<T extends Comparable<T>> {
 
   private AVLNode insertT(AVLNode node, AVLNode root) {
     if (node == null) {
-      return null;
+      return root;
     } else {
       root = insert(node.data, root);
-      AVLNode aux = insertT(node.left, root);
-      if (aux != null)
-        root = aux;
-      aux = insertT(node.right, root);
-      if (aux != null)
-        root = aux;
+      root = insertT(node.left, root);
+      root = insertT(node.right, root);
       return root;
     }
   }
@@ -201,7 +202,6 @@ public class AVL<T extends Comparable<T>> {
 
   private AVLNode leftRotation(AVLNode z) {
     var y = z.right;
-
     var y_l = y.left;
 
     y.left = z;
@@ -220,7 +220,7 @@ public class AVL<T extends Comparable<T>> {
 
     y.right = x_l;
     z.left = x;
-    x_l = y;
+    x.left = y;
 
     y.height = max(height(y.left), height(y.right)) + 1;
     x.height = max(height(x.left), height(y.right)) + 1;
@@ -235,7 +235,8 @@ public class AVL<T extends Comparable<T>> {
 
     y.left = x_r;
     z.right = x;
-    x_r = y;
+    x.right = y;
+    
 
     y.height = max(height(y.left), height(y.right)) + 1;
     x.height = max(height(x.left), height(y.right)) + 1;
@@ -269,5 +270,4 @@ public class AVL<T extends Comparable<T>> {
     System.out.println(node.data);
     inOrderPrint(node.right);
   }
-
 }
