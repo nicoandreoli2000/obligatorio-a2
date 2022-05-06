@@ -10,7 +10,6 @@ public class Ejercicio4 {
         ejercicio4(g, 1);
     }
 
-    // no dirigido-> tengo que agregar ambos sentidos de la arista
     public static Grafo<Integer> convertFromText() {
         Grafo<Integer> g = new Grafo<Integer>();
         Scanner in = new Scanner(System.in);
@@ -42,7 +41,6 @@ public class Ejercicio4 {
     }
 
     public static void ejercicio4(Grafo<Integer> g, Integer vertice) {
-
         Boolean[] visitados = new Boolean[g.getSize()];
         Boolean[] pase = new Boolean[g.getSize()];
         Arrays.fill(visitados, false);
@@ -62,11 +60,14 @@ public class Ejercicio4 {
             for (int i = 0; i < visitados.length&&!entro; i++) {
                 Boolean[] copiaV = createCopy(visitados);
                 for (int j = 0; j < visitados.length; j++) {
+                    //verifico que sea un vertice adyacente a uno ya utilizado y que el mismo 
+                    //no le haya agregado sus adyacentes
                     if(visitados[j] && !pase[j]){
                         Object[] adys = g.getAdys(j+1);
                         pase[j]=true;
                         if(adys!=null){
-                            for (int k = 0; k < adys.length&&adys[k]!=null; k++) {
+                            for (int k = 0; k < adys.length&&adys[k]!=null; k++) {  
+                                //añado los vertices adyacentes a visitados
                                 Pair<Integer, Integer> pair = (Pair<Integer, Integer>) adys[k];
                                 visitados[pair.fst()-1]=true;
                             }
@@ -75,15 +76,19 @@ public class Ejercicio4 {
                     }
                 }
                 if(Arrays.equals(visitados, copiaV)){
-                    entro = true;                   //lo uso para saber si el array fue modificado,
-                }                                   // sirve para ver si empezaria a repetir vertices
+                    entro = true; 
+                    //lo uso para saber si el array fue modificado,
+                    // sirve para ver si empezaria a repetir vertices
+                }                                   
             }
             for (int u = 0; u < visitados.length&&!entro2; u++) {
                 if(visitados[u]==false){
                     aux=u;
                     conexos++;
-                    entro2=true;    //lo uso para ver si entro en este for, si es asi guardo 
-                }                   //con que valor entro para usarlo luego
+                    entro2=true;
+                    //lo uso para ver si entro en este for, si es asi guardo
+                    //con que valor entro para usarlo luego     
+                }                   
             }
             if(allTrue(visitados)){
                 termino = true;

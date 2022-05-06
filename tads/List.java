@@ -19,13 +19,6 @@ public class List<T> implements Iterable<T> {
   }
 
   public boolean contains(T elem) {
-    // Node<T> rec = this.root;
-    // while (rec != null) {
-    //   if (rec.data.equals(elem)) {
-    //     return true;
-    //   }
-    //   rec = rec.next;
-    // }
     var it = iterator();
     while(it.hasNext()){
       if(it.next().equals(elem)) return true;
@@ -57,13 +50,6 @@ public class List<T> implements Iterable<T> {
   }
 
   public T get(T elem) throws Exception {
-    // Node<T> rec = this.root;
-    // while (rec != null) {
-    //   if (rec.data.equals(elem)) {
-    //     return rec.data;
-    //   }
-    //   rec = rec.next;
-    // }
     var it = iterator();
     while(it.hasNext()){
       var data = it.next();

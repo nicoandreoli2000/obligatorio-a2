@@ -50,15 +50,13 @@ public class AVL<T extends Comparable<T>> {
     return get(root);
   }
 
-  public AVLNode left(){
+  public AVLNode left() {
     return root.left;
   }
 
-  public AVLNode right(){
+  public AVLNode right() {
     return root.right;
   }
-
-  
 
   public Object[] getNodes() {
     Object[] ar = new Object[size(root)];
@@ -66,11 +64,11 @@ public class AVL<T extends Comparable<T>> {
   }
 
   private Object[] getNodes(AVLNode node, Object[] ad) {
-    if(node!= null){
+    if (node != null) {
       getNodes(node.left, ad);
       boolean entro = false;
-      for (int i = 0; i < ad.length&&!entro; i++) {
-        if(ad[i]==null) {
+      for (int i = 0; i < ad.length && !entro; i++) {
+        if (ad[i] == null) {
           ad[i] = node.data;
           entro = true;
         }
