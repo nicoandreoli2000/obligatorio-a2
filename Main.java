@@ -14,5 +14,6 @@ public class Main {
         // "Pablo 24",
         // };
         // Ejercicio2.ejercicio2(10, aux);
+        Ejercicio4.main(args);
     }
 }

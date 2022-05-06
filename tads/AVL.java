@@ -50,6 +50,36 @@ public class AVL<T extends Comparable<T>> {
     return get(root);
   }
 
+  public AVLNode left(){
+    return root.left;
+  }
+
+  public AVLNode right(){
+    return root.right;
+  }
+
+  
+
+  public Object[] getNodes() {
+    Object[] ar = new Object[size(root)];
+    return getNodes(root, ar);
+  }
+
+  private Object[] getNodes(AVLNode node, Object[] ad) {
+    if(node!= null){
+      getNodes(node.left, ad);
+      boolean entro = false;
+      for (int i = 0; i < ad.length&&!entro; i++) {
+        if(ad[i]==null) {
+          ad[i] = node.data;
+          entro = true;
+        }
+      }
+      getNodes(node.right, ad);
+    }
+    return ad;
+  }
+
   public void insertT(AVLNode node) {
     root = insertT(node, root);
   }
@@ -84,7 +114,7 @@ public class AVL<T extends Comparable<T>> {
       node.left = insert(data, node.left);
     else if (data.compareTo(node.data) > 0)
       node.right = insert(data, node.right);
-    
+
     node.height = max(height(node.left), height(node.right)) + 1;
     int balance = balanceFactor(node);
 
@@ -135,20 +165,20 @@ public class AVL<T extends Comparable<T>> {
       if (balance > 1) {
         // izquierda-izquierda
         if (data.compareTo(node.left.data) < 0)
-          //return rightRotation(node);
+          // return rightRotation(node);
           return leftRightRotation(node);
         // izquierda-derecha
         else
-          //return leftRightRotation(node);
+          // return leftRightRotation(node);
           return rightRotation(node);
       } else if (balance < -1) {
         // derecha-derecha
         if (data.compareTo(node.right.data) > 0)
-          //return leftRotation(node);
+          // return leftRotation(node);
           return rightLeftRotation(node);
         // derecha-izquierda
         else
-          //return rightLeftRotation(node);
+          // return rightLeftRotation(node);
           return leftRotation(node);
       } else
         return node;
@@ -236,7 +266,6 @@ public class AVL<T extends Comparable<T>> {
     y.left = x_r;
     z.right = x;
     x.right = y;
-    
 
     y.height = max(height(y.left), height(y.right)) + 1;
     x.height = max(height(x.left), height(y.right)) + 1;

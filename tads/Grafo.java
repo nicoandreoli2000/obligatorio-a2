@@ -1,42 +1,39 @@
 package tads;
 
-import java.util.Iterator;
+public class Grafo<T extends Comparable<T>> {
+    private Integer e = 1;
+    private Integer expectedSize = 0;
+    private Integer size = 0;
 
-public class Grafo<T> implements Iterable<T> {
-    private Node root;
-
-    private class Node {
-        T data;
-        List<Pair<T, Integer>> ady;
-        Node next;
-    }
+    private AVL<T> root = new AVL<T>();
+    private Object[][] adys;
 
     public void add(T elem) {
         root = add(elem, root);
     }
 
     public void add(T elem, Pair<T, Integer> ady) {
-        root = add(elem, ady, root);
+        add(elem, ady, root);
     }
 
     public void deleteNode(T elem) {
-        root = deleteNode(elem, root);
+        deleteNode(elem, root);
     }
 
     public void deleteAdy(T elem, Pair<T, Integer> ady) {
-        root = deleteAdy(elem, ady, root);
+        deleteAdy(elem, ady, root);
     }
 
     public boolean exist(T elem) {
         return exist(elem, root);
     }
 
-    public List<T> getNodes() {
+    public Object[] getNodes() {
         return getNodes(root);
     }
 
-    public List<Pair<T, Integer>> getAdys(T elem) {
-        return getAdys(elem, root);
+    public Object[] getAdys(T elem) {
+        return getAdys2(elem);
     }
 
     public Integer getGrad(T elem) {
@@ -47,42 +44,29 @@ public class Grafo<T> implements Iterable<T> {
         return get(root);
     }
 
-    /*
-     * si el grafo es no dirigido ambos vertices adyacentes se tienen como
-     * adyacente,
-     * 
-     * -add(Node data) crea el vertice sin adyacentes
-     * -add(Node data, Integer ady) añade al vertice una arista, si no existe el
-     * vertice lo crea, si no existe el vertice adyacente no hace nada
-     * -deleteNode(Node node) borra un vertice
-     * -deleteAdy(Node data, Integer ady) borra una arista
-     * -exist(Node data) si existe el nodo = true, sino false
-     * -getNodes() devuelve la lista de nodos
-     * -getAdys(Node node) devuelve la lista de adyacentes del nodo
-     * -getGrad(Node node) devuelve el grado del vertice, -1 si el vertice no existe
-     * -getData() devuelve el valor del nodo
-     * 
-     * en el iterator
-     * -hasNext()
-     * -next()
-     * ...
-     */
+    public Integer getSize() {
+        return size;
+    }
 
-    private T get(Grafo<T>.Node root2) {
+    public AVL<T> getAVL(){
+        return root;
+    }
+
+    private T get(AVL<T> root2) {
         if (root2 == null)
             return null;
         else
-            return root2.data;
+            return root2.get();
     }
 
-    private Integer getGrad(T elem, Grafo<T>.Node root2) {
-        if (exist(elem)) {
+    private Integer getGrad(T elem, AVL<T> root2) {
+        if (root2.exists(elem)) {
             Integer grad = 0;
-            var it = root2.ady.iterator();
-            var it2 = iterator();
-            while (it2.hasNext()) {
-                while (it.hasNext()) {
-                    if (it.next().fst() == elem)
+            Object[] nodes = getNodes(root2);
+            for (int i = 0; i < nodes.length && nodes[i] != null; i++) {
+                Object[] adys = getAdys((T) nodes[i]);
+                for (int j = 0; j < adys.length; j++) {
+                    if (((Pair<T, Integer>) adys[j]).fst().equals(elem))
                         grad++;
                 }
             }
@@ -91,109 +75,132 @@ public class Grafo<T> implements Iterable<T> {
         return -1;
     }
 
-    private List<Pair<T, Integer>> getAdys(T elem, Grafo<T>.Node root2) {
-        if (root2 == null)
-            return null;
-        else if (get(root2) == elem)
-            return root2.ady;
-        else
-            return getAdys(elem, root2.next);
+    private Object[] getAdys2(T elem) {
+        return adys[(Integer) elem -1];
     }
 
-    private List<T> getNodes(Grafo<T>.Node root2) {
-        if (root2 == null)
-            return null;
-        else {
-            Iterator<T> it = iterator();
-            List<T> ln = new List<T>();
-            while (it.hasNext()) {
-                ln.insert(it.next());
-            }
-            return ln;
+    private Object[] getNodes(AVL<T> root2) {
+        return root2.getNodes();        
+    }
+
+    private void deleteAdy(T elem, Pair<T, Integer> ady, AVL<T> root2) {
+        if(adys[(Integer) elem -1]==null) return;
+        else{
+            Integer pos = getPos(adys[(Integer) elem -1], ady);
+            if (pos != -1)
+            adys[(Integer) elem -1] = back(adys[(Integer) elem -1], pos);
         }
     }
 
-    private Grafo<T>.Node deleteAdy(T elem, Pair<T, Integer> ady, Grafo<T>.Node root2) {
-        if (root2 == null)
-            return root2;
-        else if (get(root2) == elem) {
-            root2.ady.delete(ady);
-            return root2;
-        } else
-            return deleteAdy(elem, ady, root2.next);
+    private void deleteNode(T elem, AVL<T> root2) {
+        root2.delete(elem);
     }
 
-    private Grafo<T>.Node deleteNode(T elem, Grafo<T>.Node root2) {
-        if (root2 == null)
-            return root2;
-        else if (get(root2) == elem) {
-            root2 = root2.next;
-            return root2;
-        } else
-            return deleteNode(elem, root2.next);
+    private boolean exist(T elem, AVL<T> root2) {
+        return root2.exists(elem);
     }
 
-    private boolean exist(T elem, Grafo<T>.Node root2) {
-        if (root2 == null)
+    //añade a un nodo existente su adyacente
+    private void add(T elem, Pair<T, Integer> ady, AVL<T> root2) {
+        // if (elem.equals(root2.data)) {
+        //     if (root2.ady == null) {
+        //         root2.ady = createArrayObject();
+        //     }
+        //     if (!existAdy(root2.ady, elem)) {
+        //         Integer lastP = lastPos(root2.ady);
+        //         if (lastP != -1)
+        //             root2.ady[lastP] = ady;
+        //         else {
+        //             e++;
+        //             Object[] ad = createArrayObject();
+        //             ad = copyArray(root2.ady, ad);
+        //             root2.ady = ad;
+        //             lastP = lastPos(root2.ady);
+        //             root2.ady[lastP] = ady;
+        //         }
+        //     }
+        //     return root2;
+        // } else {
+        //     root2.next = add(elem, ady, root2.next);
+        //     return root2;
+        // }
+
+        if(adys==null) adys = createAdys();
+        if(adys[(Integer) elem-1] == null) adys[(Integer) elem-1] = createArrayObject();
+        Integer lastP = lastPos(adys[(Integer) elem-1]);
+        if(lastP != -1) adys[(Integer) elem-1][lastP] = ady; // ady tiene que ser un object o anda si es un pair???
+        else{
+            e++;
+            Object[] ad = createArrayObject();
+            ad = copyArray(adys[(Integer) elem-1], ad);
+            adys[(Integer) elem-1] = ad;
+            lastP = lastPos(adys[(Integer) elem-1]);
+            adys[(Integer) elem-1][lastP] = ady;
+        }
+    }
+
+    private AVL<T> add(T elem, AVL<T> root2) {
+        root2.insert(elem);
+        size++;
+        return root2;
+    }
+
+    private Object[][] createAdys(){
+        Object[][] newAdys = new Object[expectedSize][];
+        return newAdys;
+    }
+
+    private boolean existAdy(Object[] ad, T elem) {
+        if (ad == null)
             return false;
-        else if (get(root2) == elem)
-            return true;
-        else
-            return exist(elem, root2.next);
-    }
-
-    private Grafo<T>.Node add(T elem, Pair<T, Integer> ady, Grafo<T>.Node root2) {
-        if (root2 == null) {
-            Node newNode = new Node();
-            newNode.data = elem;
-            newNode.ady.insert(ady);
-            newNode.next = root2;
-            root2 = newNode;
-            return root2;
-        } else if (get(root2) == elem) {
-            if (!root2.ady.contains(ady)) {
-                root2.ady.insert(ady);
+        else {
+            for (int i = 0; i < ad.length && ad[i] != null; i++) {
+                Pair<Integer, Integer> p = (Pair<Integer, Integer>) ad[i];
+                if (p.fst().equals(elem))
+                    return true;
             }
-            return root2;
-        } else
-            return add(elem, ady, root2.next);
-    }
-
-    private Grafo<T>.Node add(T elem, Grafo<T>.Node root2) {
-        if (root2 == null) {
-            Node newNode = new Node();
-            newNode.data = elem;
-            newNode.next = root2;
-            root2 = newNode;
-            return root2;
-        } else if (get(root2) == elem) {
-            return root2;
-        } else
-            return add(elem, root2.next);
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-        return new ListIterator(root);
-    }
-
-    private class ListIterator implements Iterator<T> {
-        private Node actual;
-
-        @Override
-        public boolean hasNext() {
-            return actual != null;
         }
-
-        @Override
-        public T next() {
-            T elem = actual.data;
-            actual = actual.next;
-            return elem;
-        }
-
-        public ListIterator(Node start) {
-            actual = start;
-        }
+        return false;
     }
+
+    private Integer lastPos(Object[] ad) {
+        for (int i = 0; i < ad.length; i++) {
+            if (ad[i] == null)
+                return i;
+        }
+        return -1;
+    }
+
+    private Integer getPos(Object[] ad, Pair<T, Integer> p) {
+        for (int i = 0; i < ad.length; i++) {
+            if (ad[i] == p)
+                return i;
+        }
+        return -1;
+    }
+
+    private Object[] back(Object[] ad, Integer pos) {
+        for (int i = pos; i < ad.length - 1; i++) {
+            ad[i] = ad[i + 1];
+        }
+        ad[ad.length - 1] = null;
+        return ad;
+    }
+
+    private Object[] createArrayObject() {
+        Object[] ad = new Object[7 * e];
+        return ad;
+    }
+
+    private Object[] copyArray(Object[] o1, Object[] o2) {
+        for (int i = 0; i < o1.length; i++) {
+            o2[i] = o1[i];
+        }
+        return o2;
+    }
+
+    public void setExpectedSize(Integer size){
+        expectedSize = size;
+    }
+
 }
