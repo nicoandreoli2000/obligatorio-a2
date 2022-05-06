@@ -19,13 +19,11 @@ public class List<T> implements Iterable<T> {
   }
 
   public boolean contains(T elem) {
-    Node<T> rec = this.root;
-    while (rec != null) {
-      if (rec.data.equals(elem)) {
-        return true;
-      }
-      rec = rec.next;
+    var it = iterator();
+    while(it.hasNext()){
+      if(it.next().equals(elem)) return true;
     }
+
     return false;
   }
 
@@ -52,12 +50,10 @@ public class List<T> implements Iterable<T> {
   }
 
   public T get(T elem) throws Exception {
-    Node<T> rec = this.root;
-    while (rec != null) {
-      if (rec.data.equals(elem)) {
-        return rec.data;
-      }
-      rec = rec.next;
+    var it = iterator();
+    while(it.hasNext()){
+      var data = it.next();
+      if(data.equals(elem)) return data;
     }
     throw new Exception("La lista no contiene el elemento: " + elem.toString());
   }
@@ -72,7 +68,31 @@ public class List<T> implements Iterable<T> {
 
   @Override
   public Iterator<T> iterator() {
-    // TODO Auto-generated method stub
-    return null;
+    return new ListIterator(root, size);
+  }
+
+  private class ListIterator implements Iterator<T> {
+    private Node<T> actual;
+    private int sizeActual;
+
+
+    @Override
+    public boolean hasNext() {
+        return actual != null;
+    }
+
+    @Override
+    public T next() {
+        T elem = actual.data;
+        actual = actual.next;
+        sizeActual--;
+        return elem;
+    }
+
+
+    public ListIterator(Node<T> start, Integer startSize){
+      actual = start;
+      sizeActual = startSize;
+    }
   }
 }
