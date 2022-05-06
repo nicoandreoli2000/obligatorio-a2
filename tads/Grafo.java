@@ -100,31 +100,7 @@ public class Grafo<T extends Comparable<T>> {
         return root2.exists(elem);
     }
 
-    //añade a un nodo existente su adyacente
     private void add(T elem, Pair<T, Integer> ady, AVL<T> root2) {
-        // if (elem.equals(root2.data)) {
-        //     if (root2.ady == null) {
-        //         root2.ady = createArrayObject();
-        //     }
-        //     if (!existAdy(root2.ady, elem)) {
-        //         Integer lastP = lastPos(root2.ady);
-        //         if (lastP != -1)
-        //             root2.ady[lastP] = ady;
-        //         else {
-        //             e++;
-        //             Object[] ad = createArrayObject();
-        //             ad = copyArray(root2.ady, ad);
-        //             root2.ady = ad;
-        //             lastP = lastPos(root2.ady);
-        //             root2.ady[lastP] = ady;
-        //         }
-        //     }
-        //     return root2;
-        // } else {
-        //     root2.next = add(elem, ady, root2.next);
-        //     return root2;
-        // }
-
         if(adys==null) adys = createAdys();
         if(adys[(Integer) elem-1] == null) adys[(Integer) elem-1] = createArrayObject();
         Integer lastP = lastPos(adys[(Integer) elem-1]);
