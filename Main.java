@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) throws Exception {
-        Ejercicio1.ejercicio1(10, "iLcPcKlRyCbCbJnBpB");
+        //Ejercicio1.ejercicio1(10, "iLcPcKlRyCbCbJnBpB");
         // String[] aux = {
         // "Daniel 84",
         // "Pedro 16",
@@ -14,5 +14,6 @@ public class Main {
         // "Pablo 24",
         // };
         // Ejercicio2.ejercicio2(10, aux);
+        Ejercicio4.main(args);
     }
 }

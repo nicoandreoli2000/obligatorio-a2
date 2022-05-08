@@ -48,7 +48,7 @@ public class Grafo<T extends Comparable<T>> {
         return size;
     }
 
-    public AVL<T> getAVL(){
+    public AVL<T> getAVL() {
         return root;
     }
 
@@ -76,24 +76,30 @@ public class Grafo<T extends Comparable<T>> {
     }
 
     private Object[] getAdys2(T elem) {
-        return adys[(Integer) elem -1];
+        return adys[(Integer) elem - 1];
     }
 
     private Object[] getNodes(AVL<T> root2) {
-        return root2.getNodes();        
+        return root2.getNodes();
     }
 
     private void deleteAdy(T elem, Pair<T, Integer> ady, AVL<T> root2) {
-        if(adys[(Integer) elem -1]==null) return;
-        else{
-            Integer pos = getPos(adys[(Integer) elem -1], ady);
+        if (adys[(Integer) elem - 1] == null)
+            return;
+        else {
+            Integer pos = getPos(adys[(Integer) elem - 1], ady);
             if (pos != -1)
-            adys[(Integer) elem -1] = back(adys[(Integer) elem -1], pos);
+                adys[(Integer) elem - 1] = back(adys[(Integer) elem - 1], pos);
         }
     }
 
     private void deleteNode(T elem, AVL<T> root2) {
         root2.delete(elem);
+        Object [] nodes = getNodes();
+        for (int i = 0; i < nodes.length; i++) {
+            Pair<T, Integer> p = new Pair<T,Integer>(elem);
+            deleteAdy((T) nodes[i], p);
+        }
     }
 
     private boolean exist(T elem, AVL<T> root2) {
@@ -101,17 +107,20 @@ public class Grafo<T extends Comparable<T>> {
     }
 
     private void add(T elem, Pair<T, Integer> ady, AVL<T> root2) {
-        if(adys==null) adys = createAdys();
-        if(adys[(Integer) elem-1] == null) adys[(Integer) elem-1] = createArrayObject();
-        Integer lastP = lastPos(adys[(Integer) elem-1]);
-        if(lastP != -1) adys[(Integer) elem-1][lastP] = ady; // ady tiene que ser un object o anda si es un pair???
-        else{
+        if (adys == null)
+            adys = createAdys();
+        if (adys[(Integer) elem - 1] == null)
+            adys[(Integer) elem - 1] = createArrayObject();
+        Integer lastP = lastPos(adys[(Integer) elem - 1]);
+        if (lastP != -1)
+            adys[(Integer) elem - 1][lastP] = ady; // ady tiene que ser un object o anda si es un pair???
+        else {
             e++;
             Object[] ad = createArrayObject();
-            ad = copyArray(adys[(Integer) elem-1], ad);
-            adys[(Integer) elem-1] = ad;
-            lastP = lastPos(adys[(Integer) elem-1]);
-            adys[(Integer) elem-1][lastP] = ady;
+            ad = copyArray(adys[(Integer) elem - 1], ad);
+            adys[(Integer) elem - 1] = ad;
+            lastP = lastPos(adys[(Integer) elem - 1]);
+            adys[(Integer) elem - 1][lastP] = ady;
         }
     }
 
@@ -121,7 +130,7 @@ public class Grafo<T extends Comparable<T>> {
         return root2;
     }
 
-    private Object[][] createAdys(){
+    private Object[][] createAdys() {
         Object[][] newAdys = new Object[expectedSize][];
         return newAdys;
     }
@@ -148,8 +157,8 @@ public class Grafo<T extends Comparable<T>> {
     }
 
     private Integer getPos(Object[] ad, Pair<T, Integer> p) {
-        for (int i = 0; i < ad.length; i++) {
-            if (ad[i] == p)
+        for (int i = 0; i < ad.length&&ad[i]!=null; i++) {
+            if (((Pair<T, Integer>) ad[i]).fst() == p.fst())
                 return i;
         }
         return -1;
@@ -175,7 +184,7 @@ public class Grafo<T extends Comparable<T>> {
         return o2;
     }
 
-    public void setExpectedSize(Integer size){
+    public void setExpectedSize(Integer size) {
         expectedSize = size;
     }
 
