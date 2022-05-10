@@ -95,9 +95,9 @@ public class Grafo<T extends Comparable<T>> {
 
     private void deleteNode(T elem, AVL<T> root2) {
         root2.delete(elem);
-        Object [] nodes = getNodes();
+        Object[] nodes = getNodes();
         for (int i = 0; i < nodes.length; i++) {
-            Pair<T, Integer> p = new Pair<T,Integer>(elem);
+            Pair<T, Integer> p = new Pair<T, Integer>(elem);
             deleteAdy((T) nodes[i], p);
         }
     }
@@ -157,7 +157,7 @@ public class Grafo<T extends Comparable<T>> {
     }
 
     private Integer getPos(Object[] ad, Pair<T, Integer> p) {
-        for (int i = 0; i < ad.length&&ad[i]!=null; i++) {
+        for (int i = 0; i < ad.length && ad[i] != null; i++) {
             if (((Pair<T, Integer>) ad[i]).fst() == p.fst())
                 return i;
         }
