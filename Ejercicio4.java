@@ -1,43 +1,12 @@
 import java.util.Arrays;
-import java.util.Scanner;
 
 import tads.*;
 
 public class Ejercicio4 {
 
     public static void main(String[] args) {
-        Grafo<Integer> g = convertFromText();
+        Grafo<Integer> g = Grafo.convertFromText();
         ejercicio4(g, 1);
-    }
-
-    public static Grafo<Integer> convertFromText() {
-        Grafo<Integer> g = new Grafo<Integer>();
-        Scanner in = new Scanner(System.in);
-        Integer v = Integer.parseInt(in.nextLine());
-        g.setExpectedSize(v);
-        for (int i = 0; i < v; i++) {
-            g.add(i + 1);
-        }
-        Integer e = Integer.parseInt(in.nextLine());
-        for (int i = 0; i < e; i++) {
-            String[] l = in.nextLine().split(" ");
-            Integer[] linea = new Integer[l.length];
-            for (int j = 0; j < l.length; j++) {
-                linea[j] = Integer.parseInt(l[j]);
-            }
-            if (linea.length == 3) {
-                Pair<Integer, Integer> p1 = new Pair<Integer, Integer>(linea[1], linea[2]);
-                Pair<Integer, Integer> p2 = new Pair<Integer, Integer>(linea[0], linea[2]);
-                g.add(linea[0], p1);
-                g.add(linea[1], p2);
-            } else {
-                Pair<Integer, Integer> p1 = new Pair<Integer, Integer>(linea[1], 1);
-                Pair<Integer, Integer> p2 = new Pair<Integer, Integer>(linea[0], 1);
-                g.add(linea[0], p1);
-                g.add(linea[1], p2);
-            }
-        }
-        return g;
     }
 
     public static void ejercicio4(Grafo<Integer> g, Integer vertice) {
@@ -58,7 +27,7 @@ public class Ejercicio4 {
             }
             Boolean entro = false;
             for (int i = 0; i < visitados.length && !entro; i++) {
-                Boolean[] copiaV = createCopy(visitados);
+                Boolean[] copiaV = Grafo.createCopy(visitados);
                 for (int j = 0; j < visitados.length; j++) {
                     // verifico que sea un vertice adyacente a uno ya utilizado y que el mismo
                     // no le haya agregado sus adyacentes
@@ -90,29 +59,11 @@ public class Ejercicio4 {
                     // con que valor entro para usarlo luego
                 }
             }
-            if (allTrue(visitados)) {
+            if (Grafo.allTrue(visitados)) {
                 termino = true;
             }
         }
 
         System.out.println(conexos);
     }
-
-    private static boolean allTrue(Boolean[] visitados) {
-        boolean b = true;
-        for (int i = 0; i < visitados.length; i++) {
-            b = b && visitados[i];
-        }
-        return b;
-    }
-
-    // crea una copia del array que no comparte memoria con el original
-    private static Boolean[] createCopy(Boolean[] visitados) {
-        Boolean[] copy = new Boolean[visitados.length];
-        for (int i = 0; i < copy.length; i++) {
-            copy[i] = visitados[i];
-        }
-        return copy;
-    }
-
 }
