@@ -35,7 +35,7 @@ public class GraphWithList implements Graph {
     @Override
     public List<Integer> getEdges(Integer node) {
         List<Integer> edges = (List<Integer>) list[node];
-        return edges;
+        return edges == null ? new List<Integer>() : edges;
     }
 
     @Override
@@ -63,4 +63,5 @@ public class GraphWithList implements Graph {
         in.close();
         return graph;
     }
+
 }
