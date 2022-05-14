@@ -1,7 +1,6 @@
 package tads;
 
 public class OpenHashMap<K, V> implements Map<K, V> {
-    // List<Pair<K,V>>[] table;
     private Object[] table;
     private int size;
 
