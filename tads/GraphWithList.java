@@ -46,7 +46,7 @@ public class GraphWithList implements Graph {
         return size;
     }
 
-    public static GraphWithList createGraphFromInput() {
+    public static GraphWithList createUndirectedGraphFromInput() {
         var in = new Scanner(System.in);
         Integer size = Integer.parseInt(in.nextLine());
         GraphWithList graph = new GraphWithList(size);
@@ -57,7 +57,9 @@ public class GraphWithList implements Graph {
             Integer from = Integer.parseInt(arr[0]);
             Integer to = Integer.parseInt(arr[1]);
             graph.addEdge(from - 1, to - 1);
-            graph.addEdge(to - 1, from - 1);
+            if (from != to) {
+                graph.addEdge(to - 1, from - 1);
+            }
         }
         in.close();
         return graph;
