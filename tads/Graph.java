@@ -3,7 +3,7 @@ package tads;
 public interface Graph {
     void addEdge(Integer from, Integer to);
 
-    boolean containsEdge(Integer node);
+    Boolean containsEdge(Integer node);
 
     List<Integer> getEdges(Integer node);
 

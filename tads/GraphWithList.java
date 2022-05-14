@@ -25,7 +25,7 @@ public class GraphWithList implements Graph {
     }
 
     @Override
-    public boolean containsEdge(Integer node) {
+    public Boolean containsEdge(Integer node) {
         if (list[node] == null) {
             return false;
         }
@@ -58,7 +58,7 @@ public class GraphWithList implements Graph {
             String[] arr = line.split(" ");
             Integer from = Integer.parseInt(arr[0]);
             Integer to = Integer.parseInt(arr[1]);
-            graph.addEdge(from, to);
+            graph.addEdge(from - 1, to - 1);
         }
         in.close();
         return graph;
