@@ -1,5 +1,6 @@
 package tads;
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class GraphWithList implements Graph {
@@ -26,10 +27,7 @@ public class GraphWithList implements Graph {
 
     @Override
     public Boolean containsEdge(Integer node) {
-        if (list[node] == null) {
-            return false;
-        }
-        return true;
+        return list[node] != null;
     }
 
     @Override
@@ -59,9 +57,25 @@ public class GraphWithList implements Graph {
             Integer from = Integer.parseInt(arr[0]);
             Integer to = Integer.parseInt(arr[1]);
             graph.addEdge(from - 1, to - 1);
+            graph.addEdge(to - 1, from - 1);
         }
         in.close();
         return graph;
+    }
+
+    public void printGraph(GraphWithList g) {
+        for (int i = 0; i < g.getSize(); i++) {
+            List<Integer> list = g.getEdges(i);
+            if (list != null) {
+                System.out.print("Vertice " + (i + 1) + ": ");
+            }
+            Iterator<Integer> it = list.iterator();
+            while (it.hasNext()) {
+                Integer arista = it.next();
+                System.out.print((arista + 1) + " -> ");
+            }
+            System.out.println("NULL");
+        }
     }
 
 }
