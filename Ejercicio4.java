@@ -17,8 +17,7 @@ public class Ejercicio4 {
         }
         Stack<Integer> stack = new Stack<Integer>();
         int amountVisited = 0;
-        stack.push(0);
-        int counter = 1;
+        int counter = 0;
         while (amountVisited < visited.length) {
             if (stack.isEmpty()) {
                 counter++;
