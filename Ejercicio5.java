@@ -16,7 +16,7 @@ public class Ejercicio5 {
         for (int i = 0; i < visited.length; i++) {
             List<Integer> list = g.getEdges(i);
             g.deleteEdges(i);
-            if (!esConexo(g)) {
+            if (!esConexoSinUnVertice(g, i)) {
                 System.out.println(i + 1);
             }
             Iterator<Integer> it = list.iterator();
@@ -28,7 +28,7 @@ public class Ejercicio5 {
         }
     }
 
-    private static boolean esConexo(GraphWithList g) throws Exception {
+    private static boolean esConexoSinUnVertice(GraphWithList g, int v) throws Exception {
         boolean[] visited = new boolean[g.getSize()];
         for (int i = 0; i < visited.length; i++) {
             visited[i] = false;
@@ -37,7 +37,7 @@ public class Ejercicio5 {
         // DFS
         Stack<Integer> stack = new Stack<Integer>();
         for (int i = 0; i < visited.length; i++) {
-            if (g.containsEdge(i)) {
+            if (i != v) {
                 stack.push(i);
                 break;
             }
@@ -59,7 +59,7 @@ public class Ejercicio5 {
         // END DFS
 
         for (int i = 0; i < visited.length; i++) {
-            if (!visited[i] && g.containsEdge(i)) {
+            if (!visited[i] && i != v) {
                 return false;
             }
         }

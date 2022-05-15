@@ -7,7 +7,7 @@ STUDENT_FOLDER=.
 rm -dr $BUILD_FOLDER
 mkdir "$BUILD_FOLDER" 
 
-for NRO_EJERCICIO in {4..13}
+for NRO_EJERCICIO in {4..5}
 do
     TEST_FOLDER=./pruebas/ejercicio$NRO_EJERCICIO
     JAVAFILE=$STUDENT_FOLDER/Ejercicio$NRO_EJERCICIO.java
