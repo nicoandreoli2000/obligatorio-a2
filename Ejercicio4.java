@@ -6,21 +6,7 @@ import tads.*;
 public class Ejercicio4 {
 
     public static void main(String[] args) throws Exception {
-
-        // GraphWithList g = new GraphWithList(10);
-        // g.addEdge(3, 6);
-        // g.addEdge(7, 5);
-        // g.addEdge(3, 5);
-        // g.addEdge(6, 2);
-        // g.addEdge(9, 1);
-        // g.addEdge(6, 3);
-        // g.addEdge(5, 7);
-        // g.addEdge(5, 3);
-        // g.addEdge(2, 6);
-        // g.addEdge(1, 9);
-
         GraphWithList g = GraphWithList.createUndirectedGraphFromInput();
-        g.printGraph(g);
         ejercicio4(g);
     }
 
