@@ -29,18 +29,22 @@ public class Ejercicio4 {
                 }
             } else {
                 int elem = stack.pop();
-                visited[elem] = true;
-                amountVisited++;
-                List<Integer> adjs = g.getEdges(elem);
-                Iterator<Integer> it = adjs.iterator();
-                while (it.hasNext()) {
-                    int edge = it.next();
-                    if (!visited[edge]) {
-                        stack.push(edge);
+                if (!visited[elem]) {
+
+                    visited[elem] = true;
+                    amountVisited++;
+                    List<Integer> adjs = g.getEdges(elem);
+                    Iterator<Integer> it = adjs.iterator();
+                    while (it.hasNext()) {
+                        int edge = it.next();
+                        if (!visited[edge]) {
+                            stack.push(edge);
+                        }
                     }
                 }
             }
         }
+
         System.out.println(counter);
     }
 }
