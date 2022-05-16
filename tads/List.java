@@ -20,8 +20,9 @@ public class List<T> implements Iterable<T> {
 
   public boolean contains(T elem) {
     var it = iterator();
-    while(it.hasNext()){
-      if(it.next().equals(elem)) return true;
+    while (it.hasNext()) {
+      if (it.next().equals(elem))
+        return true;
     }
 
     return false;
@@ -50,12 +51,20 @@ public class List<T> implements Iterable<T> {
   }
 
   public T get(T elem) throws Exception {
-    var it = iterator();
-    while(it.hasNext()){
-      var data = it.next();
-      if(data.equals(elem)) return data;
+    Iterator<T> it = iterator();
+    while (it.hasNext()) {
+      T data = it.next();
+      if (data.equals(elem))
+        return data;
     }
     throw new Exception("La lista no contiene el elemento: " + elem.toString());
+  }
+
+  public T first() throws Exception {
+    if (this.isEmpty()) {
+      throw new Exception("La lista está vacía");
+    }
+    return root.data;
   }
 
   public int size() {
@@ -75,22 +84,20 @@ public class List<T> implements Iterable<T> {
     private Node<T> actual;
     private int sizeActual;
 
-
     @Override
     public boolean hasNext() {
-        return actual != null;
+      return actual != null;
     }
 
     @Override
     public T next() {
-        T elem = actual.data;
-        actual = actual.next;
-        sizeActual--;
-        return elem;
+      T elem = actual.data;
+      actual = actual.next;
+      sizeActual--;
+      return elem;
     }
 
-
-    public ListIterator(Node<T> start, Integer startSize){
+    public ListIterator(Node<T> start, Integer startSize) {
       actual = start;
       sizeActual = startSize;
     }
