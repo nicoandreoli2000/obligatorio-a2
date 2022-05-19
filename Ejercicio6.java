@@ -21,5 +21,19 @@ public class Ejercicio6 {
         }
         // End Warshall
 
+        int counter = 0;
+        for (int i = 0; i < g.getSize(); i++) {
+            boolean row = true;
+            for (int j = 0; j < g.getSize(); j++) {
+                if (!booleanMat[i][j]) {
+                    row = false;
+                    break;
+                }
+            }
+            if (row) {
+                counter++;
+            }
+        }
+        System.out.println(counter);
     }
 }
