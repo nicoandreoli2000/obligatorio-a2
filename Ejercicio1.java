@@ -5,13 +5,13 @@ import tads.OpenHashMap;
 public class Ejercicio1 {
     public static void main(String[] args) throws Exception {
         var in = new Scanner(System.in);
-        Integer n = Integer.parseInt(in.nextLine());
+        int n = Integer.parseInt(in.nextLine());
         String s = in.nextLine();
-        System.out.println(ejercicio1(n, s));
+        ejercicio1(n, s);
         in.close();
     }
 
-    public static Integer ejercicio1(Integer n, String s) throws Exception {
+    public static void ejercicio1(int n, String s) throws Exception {
         var hash = new OpenHashMap<Character, Integer>(n);
         int amount = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -38,6 +38,6 @@ public class Ejercicio1 {
                 hash.insert(pos, value);
             }
         }
-        return amount;
+        System.out.println(amount);
     }
 }

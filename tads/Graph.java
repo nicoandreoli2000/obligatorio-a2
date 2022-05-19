@@ -1,13 +1,11 @@
 package tads;
 
 public interface Graph {
-    void addEdge(Integer from, Integer to);
+    void addEdge(int from, int to);
 
-    Boolean containsEdge(Integer node);
+    List<Integer> getEdges(int node);
 
-    List<Integer> getEdges(Integer node);
-
-    void deleteEdges(Integer node);
+    void deleteEdges(int node);
 
     int getSize();
 }

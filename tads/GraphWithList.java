@@ -17,7 +17,7 @@ public class GraphWithList implements Graph {
     }
 
     @Override
-    public void addEdge(Integer from, Integer to) {
+    public void addEdge(int from, int to) {
         if (list[from] == null) {
             list[from] = new List<Integer>();
         }
@@ -26,18 +26,13 @@ public class GraphWithList implements Graph {
     }
 
     @Override
-    public Boolean containsEdge(Integer node) {
-        return list[node] != null;
-    }
-
-    @Override
-    public List<Integer> getEdges(Integer node) {
+    public List<Integer> getEdges(int node) {
         List<Integer> edges = (List<Integer>) list[node];
         return edges == null ? new List<Integer>() : edges;
     }
 
     @Override
-    public void deleteEdges(Integer node) {
+    public void deleteEdges(int node) {
         list[node] = null;
     }
 
@@ -48,14 +43,14 @@ public class GraphWithList implements Graph {
 
     public static GraphWithList createUndirectedGraphFromInput() {
         var in = new Scanner(System.in);
-        Integer size = Integer.parseInt(in.nextLine());
+        int size = Integer.parseInt(in.nextLine());
         GraphWithList graph = new GraphWithList(size);
-        Integer length = Integer.parseInt(in.nextLine());
+        int length = Integer.parseInt(in.nextLine());
         for (int i = 0; i < length; i++) {
             String line = in.nextLine();
             String[] arr = line.split(" ");
-            Integer from = Integer.parseInt(arr[0]);
-            Integer to = Integer.parseInt(arr[1]);
+            int from = Integer.parseInt(arr[0]);
+            int to = Integer.parseInt(arr[1]);
             graph.addEdge(from - 1, to - 1);
             if (from != to) {
                 graph.addEdge(to - 1, from - 1);
@@ -73,7 +68,7 @@ public class GraphWithList implements Graph {
             }
             Iterator<Integer> it = list.iterator();
             while (it.hasNext()) {
-                Integer arista = it.next();
+                int arista = it.next();
                 System.out.print((arista + 1) + " -> ");
             }
             System.out.println("NULL");
