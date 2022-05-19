@@ -6,7 +6,6 @@ public class GraphWithMat implements Graph {
 
     public GraphWithMat(int length) {
         matrix = new Object[length][length];
-        System.out.println(matrix[0][0]);
         size = length;
     }
 

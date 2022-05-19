@@ -10,9 +10,6 @@ public class GraphWithList implements Graph {
 
     public GraphWithList(int length) {
         list = new Object[length];
-        for (int i = 0; i < length; i++) {
-            list[i] = null;
-        }
         size = length;
     }
 
@@ -53,7 +50,7 @@ public class GraphWithList implements Graph {
             int to = Integer.parseInt(arr[1]);
             graph.addEdge(from - 1, new Pair<Integer, Integer>(to - 1, 1));
             if (from != to) {
-                graph.addEdge(to - 1, new Pair<Integer, Integer>(to - 1, 1));
+                graph.addEdge(to - 1, new Pair<Integer, Integer>(from - 1, 1));
             }
         }
         in.close();
