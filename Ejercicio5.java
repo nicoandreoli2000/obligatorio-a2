@@ -8,7 +8,7 @@ import tads.Stack;
 
 public class Ejercicio5 {
     public static void main(String[] args) throws Exception {
-        GraphWithList g = Graph.createGraphFromInput(false);
+        GraphWithList g = Graph.createGraphWithListFromInput(false);
         ejercicio5(g);
     }
 

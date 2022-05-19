@@ -1,10 +1,10 @@
 package tads;
 
-public class GraphWithMat implements Graph {
+public class GraphWithMatrix implements Graph {
     private Object[][] matrix;
     private int size;
 
-    public GraphWithMat(int length) {
+    public GraphWithMatrix(int length) {
         matrix = new Object[length][length];
         size = length;
     }
@@ -29,6 +29,19 @@ public class GraphWithMat implements Graph {
     @Override
     public int getSize() {
         return size;
+    }
+
+    public Boolean[][] getWarshallMatrix() {
+        Boolean[][] booleanMatrix = new Boolean[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Pair<Integer, Integer> elem = (Pair<Integer, Integer>) matrix[i][j];
+                if (elem.key > 0) {
+                    booleanMatrix[i][j] = true;
+                }
+            }
+        }
+        return booleanMatrix;
     }
 
 }
