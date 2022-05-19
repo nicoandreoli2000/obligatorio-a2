@@ -1,9 +1,9 @@
 package tads;
 
 public interface Graph {
-    void addEdge(int from, int to);
+    void addEdge(int from, Pair<Integer, Integer> pair);
 
-    List<Integer> getEdges(int node);
+    List<Pair<Integer, Integer>> getEdges(int node);
 
     void deleteEdges(int node);
 
