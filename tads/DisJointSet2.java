@@ -4,13 +4,11 @@ public class DisJointSet2 {
     private int[] parent;
     private int[] rank;
     private int size;
-    int n;
 
     public DisJointSet2(int n) {
         parent = new int[n];
         rank = new int[n];
         size = n;
-        this.n = n;
         makeSet();
     }
 
@@ -44,7 +42,7 @@ public class DisJointSet2 {
 
             rank[yRoot]++;
         }
-        
+
         size--;
     }
 
