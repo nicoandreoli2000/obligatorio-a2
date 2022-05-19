@@ -1,5 +1,7 @@
 package tads;
 
+import java.util.Scanner;
+
 public class Grafo<T extends Comparable<T>> {
     private Integer e = 1;
     private Integer expectedSize = 0;
@@ -95,9 +97,9 @@ public class Grafo<T extends Comparable<T>> {
 
     private void deleteNode(T elem, AVL<T> root2) {
         root2.delete(elem);
-        Object [] nodes = getNodes();
+        Object[] nodes = getNodes();
         for (int i = 0; i < nodes.length; i++) {
-            Pair<T, Integer> p = new Pair<T,Integer>(elem);
+            Pair<T, Integer> p = new Pair<T, Integer>(elem);
             deleteAdy((T) nodes[i], p);
         }
     }
@@ -157,7 +159,7 @@ public class Grafo<T extends Comparable<T>> {
     }
 
     private Integer getPos(Object[] ad, Pair<T, Integer> p) {
-        for (int i = 0; i < ad.length&&ad[i]!=null; i++) {
+        for (int i = 0; i < ad.length && ad[i] != null; i++) {
             if (((Pair<T, Integer>) ad[i]).fst() == p.fst())
                 return i;
         }
@@ -186,6 +188,53 @@ public class Grafo<T extends Comparable<T>> {
 
     public void setExpectedSize(Integer size) {
         expectedSize = size;
+    }
+
+    public static Grafo<Integer> convertFromText() {
+        Grafo<Integer> g = new Grafo<Integer>();
+        Scanner in = new Scanner(System.in);
+        Integer v = Integer.parseInt(in.nextLine());
+        g.setExpectedSize(v);
+        for (int i = 0; i < v; i++) {
+            g.add(i + 1);
+        }
+        Integer e = Integer.parseInt(in.nextLine());
+        for (int i = 0; i < e; i++) {
+            String[] l = in.nextLine().split(" ");
+            Integer[] linea = new Integer[l.length];
+            for (int j = 0; j < l.length; j++) {
+                linea[j] = Integer.parseInt(l[j]);
+            }
+            if (linea.length == 3) {
+                Pair<Integer, Integer> p1 = new Pair<Integer, Integer>(linea[1], linea[2]);
+                Pair<Integer, Integer> p2 = new Pair<Integer, Integer>(linea[0], linea[2]);
+                g.add(linea[0], p1);
+                g.add(linea[1], p2);
+            } else {
+                Pair<Integer, Integer> p1 = new Pair<Integer, Integer>(linea[1], 1);
+                Pair<Integer, Integer> p2 = new Pair<Integer, Integer>(linea[0], 1);
+                g.add(linea[0], p1);
+                g.add(linea[1], p2);
+            }
+        }
+        in.close();
+        return g;
+    }
+
+    public static boolean allTrue(Boolean[] visitados) {
+        boolean b = true;
+        for (int i = 0; i < visitados.length; i++) {
+            b = b && visitados[i];
+        }
+        return b;
+    }
+
+    public static Boolean[] createCopy(Boolean[] visitados) {
+        Boolean[] copy = new Boolean[visitados.length];
+        for (int i = 0; i < copy.length; i++) {
+            copy[i] = visitados[i];
+        }
+        return copy;
     }
 
 }

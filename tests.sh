@@ -14,7 +14,7 @@ do
     CPPFILE=$STUDENT_FOLDER/ejercicio$NRO_EJERCICIO.cpp
 
     if [ -f "$JAVAFILE" ] || [ -f "$CPPFILE" ]; then
-        echo -e "\e[1;36m Comenzando pruebas para EJERCICIO $NRO_EJERCICIO "
+        echo -e "Comenzando pruebas para EJERCICIO $NRO_EJERCICIO "
         # echo "Compilando..."
         if [ -f "$CPPFILE" ]; then
           echo "Realizado en C++"

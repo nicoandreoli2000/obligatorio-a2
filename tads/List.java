@@ -60,6 +60,13 @@ public class List<T> implements Iterable<T> {
     throw new Exception("La lista no contiene el elemento: " + elem.toString());
   }
 
+  public T first() throws Exception {
+    if (this.isEmpty()) {
+      throw new Exception("La lista está vacía");
+    }
+    return root.data;
+  }
+
   public int size() {
     return this.size;
   }
