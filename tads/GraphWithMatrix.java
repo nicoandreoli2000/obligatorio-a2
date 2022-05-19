@@ -1,11 +1,11 @@
 package tads;
 
 public class GraphWithMatrix implements Graph {
-    private Object[][] matrix;
+    private Integer[][] matrix;
     private int size;
 
     public GraphWithMatrix(int length) {
-        matrix = new Object[length][length];
+        matrix = new Integer[length][length];
         size = length;
     }
 
@@ -35,10 +35,7 @@ public class GraphWithMatrix implements Graph {
         Boolean[][] booleanMatrix = new Boolean[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                Pair<Integer, Integer> elem = (Pair<Integer, Integer>) matrix[i][j];
-                if (elem.key > 0) {
-                    booleanMatrix[i][j] = true;
-                }
+                booleanMatrix[i][j] = matrix[i][j] != null && matrix[i][j] > 0;
             }
         }
         return booleanMatrix;
