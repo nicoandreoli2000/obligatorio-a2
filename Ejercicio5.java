@@ -1,5 +1,6 @@
 import java.util.Iterator;
 
+import tads.Graph;
 import tads.GraphWithList;
 import tads.List;
 import tads.Pair;
@@ -7,7 +8,7 @@ import tads.Stack;
 
 public class Ejercicio5 {
     public static void main(String[] args) throws Exception {
-        GraphWithList g = GraphWithList.createUndirectedAndUnweightedGraphFromInput();
+        GraphWithList g = Graph.createGraphFromInput(false);
         ejercicio5(g);
     }
 

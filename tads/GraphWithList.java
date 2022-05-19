@@ -38,25 +38,6 @@ public class GraphWithList implements Graph {
         return size;
     }
 
-    public static GraphWithList createUndirectedAndUnweightedGraphFromInput() {
-        var in = new Scanner(System.in);
-        int size = Integer.parseInt(in.nextLine());
-        GraphWithList graph = new GraphWithList(size);
-        int length = Integer.parseInt(in.nextLine());
-        for (int i = 0; i < length; i++) {
-            String line = in.nextLine();
-            String[] arr = line.split(" ");
-            int from = Integer.parseInt(arr[0]);
-            int to = Integer.parseInt(arr[1]);
-            graph.addEdge(from - 1, new Pair<Integer, Integer>(to - 1, 1));
-            if (from != to) {
-                graph.addEdge(to - 1, new Pair<Integer, Integer>(from - 1, 1));
-            }
-        }
-        in.close();
-        return graph;
-    }
-
     public void printGraph(GraphWithList g) {
         for (int i = 0; i < g.getSize(); i++) {
             List<Pair<Integer, Integer>> list = g.getEdges(i);
