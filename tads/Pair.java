@@ -14,16 +14,16 @@ public class Pair<K, V> {
         this.value = null;
     }
 
-    public K fst(){
+    public K fst() {
         return key;
     }
 
-    public V snd(){
+    public V snd() {
         return value;
     }
 
     @Override
     public boolean equals(Object other) {
-        return this.key.equals(((Pair<K, V>) other).key);
+        return key.equals(((Pair<K, V>) other).key);
     }
 }
