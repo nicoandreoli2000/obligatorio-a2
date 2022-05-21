@@ -1,34 +1,35 @@
-
 import java.util.Iterator;
 
+import tads.Graph;
 import tads.GraphWithList;
 import tads.List;
+import tads.Pair;
 import tads.Stack;
 
 public class Ejercicio5 {
     public static void main(String[] args) throws Exception {
-        GraphWithList g = GraphWithList.createUndirectedGraphFromInput();
+        GraphWithList g = Graph.createGraphWithListFromInput(false);
         ejercicio5(g);
     }
 
     public static void ejercicio5(GraphWithList g) throws Exception {
         boolean[] visited = new boolean[g.getSize()];
         for (int i = 0; i < visited.length; i++) {
-            List<Integer> list = g.getEdges(i);
+            List<Pair<Integer, Integer>> list = g.getEdges(i);
             g.deleteEdges(i);
-            if (!esConexo(g)) {
+            if (!esConexoSinUnVertice(g, i)) {
                 System.out.println(i + 1);
             }
-            Iterator<Integer> it = list.iterator();
+            Iterator<Pair<Integer, Integer>> it = list.iterator();
             while (it.hasNext()) {
-                int to = it.next();
-                g.addEdge(i, to);
+                Pair<Integer, Integer> arista = it.next();
+                g.addEdge(i, arista);
             }
             visited[i] = true;
         }
     }
 
-    private static boolean esConexo(GraphWithList g) throws Exception {
+    private static boolean esConexoSinUnVertice(GraphWithList g, int v) throws Exception {
         boolean[] visited = new boolean[g.getSize()];
         for (int i = 0; i < visited.length; i++) {
             visited[i] = false;
@@ -37,7 +38,7 @@ public class Ejercicio5 {
         // DFS
         Stack<Integer> stack = new Stack<Integer>();
         for (int i = 0; i < visited.length; i++) {
-            if (g.containsEdge(i)) {
+            if (i != v) {
                 stack.push(i);
                 break;
             }
@@ -46,12 +47,12 @@ public class Ejercicio5 {
             int elem = stack.pop();
             if (!visited[elem]) {
                 visited[elem] = true;
-                List<Integer> adjs = g.getEdges(elem);
-                Iterator<Integer> it = adjs.iterator();
+                List<Pair<Integer, Integer>> adjs = g.getEdges(elem);
+                Iterator<Pair<Integer, Integer>> it = adjs.iterator();
                 while (it.hasNext()) {
-                    int edge = it.next();
-                    if (!visited[edge]) {
-                        stack.push(edge);
+                    Pair<Integer, Integer> arista = it.next();
+                    if (!visited[arista.key]) {
+                        stack.push(arista.key);
                     }
                 }
             }
@@ -59,7 +60,7 @@ public class Ejercicio5 {
         // END DFS
 
         for (int i = 0; i < visited.length; i++) {
-            if (!visited[i] && g.containsEdge(i)) {
+            if (!visited[i] && i != v) {
                 return false;
             }
         }

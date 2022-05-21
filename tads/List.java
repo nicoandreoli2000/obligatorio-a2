@@ -7,8 +7,8 @@ public class List<T> implements Iterable<T> {
   private int size;
 
   public List() {
-    this.root = null;
-    this.size = 0;
+    root = null;
+    size = 0;
   }
 
   public void insert(T elem) {
@@ -32,7 +32,7 @@ public class List<T> implements Iterable<T> {
     if (root == null) {
       return;
     }
-    this.size--;
+    size--;
     if (root.data.equals(elem)) {
       root = root.next;
       return;
@@ -61,18 +61,18 @@ public class List<T> implements Iterable<T> {
   }
 
   public T first() throws Exception {
-    if (this.isEmpty()) {
+    if (isEmpty()) {
       throw new Exception("La lista está vacía");
     }
     return root.data;
   }
 
   public int size() {
-    return this.size;
+    return size;
   }
 
   public boolean isEmpty() {
-    return this.size == 0;
+    return size == 0;
   }
 
   @Override

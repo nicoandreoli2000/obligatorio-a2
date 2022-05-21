@@ -5,12 +5,12 @@ import tads.OpenHashMap;
 public class Ejercicio2 {
     public static void main(String[] args) throws Exception {
         var in = new Scanner(System.in);
-        Integer n = Integer.parseInt(in.nextLine());
-        System.out.println(ejercicio2(n, in));
+        int n = Integer.parseInt(in.nextLine());
+        ejercicio2(n, in);
         in.close();
     }
 
-    public static String ejercicio2(Integer n, Scanner in) throws Exception {
+    public static void ejercicio2(int n, Scanner in) throws Exception {
         var hash = new OpenHashMap<String, Integer>(n);
         int maxAmountOfPoints = 0;
         String personWithMaxAmountOfPointsFirst = "";
@@ -37,6 +37,6 @@ public class Ejercicio2 {
                 hash.insert(name, points);
             }
         }
-        return personWithMaxAmountOfPointsFirst;
+        System.out.println(personWithMaxAmountOfPointsFirst);
     }
 }

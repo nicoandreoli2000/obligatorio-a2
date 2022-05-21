@@ -5,6 +5,10 @@ import tads.*;
 public class Ejercicio4 {
 
     public static void main(String[] args) {
+        ejericio5();
+    }
+
+    public static void ejericio5() {
         Scanner in = new Scanner(System.in);
         Integer v = Integer.parseInt(in.nextLine());
         DisJointSet2 dsj = new DisJointSet2(v);
@@ -15,8 +19,10 @@ public class Ejercicio4 {
             for (int j = 0; j < l.length; j++) {
                 linea[j] = Integer.parseInt(l[j]);
             }
-            dsj.union(linea[0]-1, linea[1]-1);
+            dsj.union(linea[0] - 1, linea[1] - 1);
         }
         System.out.println(dsj.size());
+        in.close();
     }
+
 }
