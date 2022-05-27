@@ -87,6 +87,8 @@ public class Heap<E> implements PriorityQueue<E> {
         }
         Pair<E, Integer> parent = (Pair<E, Integer>) arr[i % 2];
         Pair<E, Integer> actual = (Pair<E, Integer>) arr[i];
+        System.out.println(parent);
+        System.out.println(actual);
         if (parent.value < actual.value) {
             arr[i % 2] = actual;
             arr[i] = parent;

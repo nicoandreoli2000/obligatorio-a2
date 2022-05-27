@@ -34,6 +34,6 @@ public class Ejercicio7 {
             }
 
         }
-        System.out.println(costo);
+        System.out.print(costo);
     }
 }
