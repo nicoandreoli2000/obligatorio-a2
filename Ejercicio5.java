@@ -13,8 +13,7 @@ public class Ejercicio5 {
     }
 
     public static void ejercicio5(GraphWithList g) throws Exception {
-        boolean[] visited = new boolean[g.getSize()];
-        for (int i = 0; i < visited.length; i++) {
+        for (int i = 0; i < g.getSize(); i++) {
             List<Pair<Integer, Integer>> list = g.getEdges(i);
             g.deleteEdges(i);
             if (!esConexoSinUnVertice(g, i)) {
@@ -25,7 +24,6 @@ public class Ejercicio5 {
                 Pair<Integer, Integer> arista = it.next();
                 g.addEdge(i, arista);
             }
-            visited[i] = true;
         }
     }
 

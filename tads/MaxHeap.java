@@ -1,12 +1,12 @@
 package tads;
 
-public class Heap<E> implements PriorityQueue<E> {
+public class MaxHeap<E> implements PriorityQueue<E> {
     private Object[] arr;
     private int size;
     private int max;
 
-    public Heap(int maxSize) {
-        arr = new Object[maxSize];
+    public MaxHeap(int maxSize) {
+        arr = new Object[maxSize + 1];
         size = 0;
         max = maxSize;
     }
@@ -14,7 +14,7 @@ public class Heap<E> implements PriorityQueue<E> {
     @Override
     public void push(E elem, int prio) throws Exception {
         if (this.isFull()) {
-            throw new Exception("El Heap esta lleno");
+            throw new Exception("El Heap está lleno");
         }
         size++;
         arr[size] = new Pair<E, Integer>(elem, prio);
@@ -26,14 +26,17 @@ public class Heap<E> implements PriorityQueue<E> {
         if (this.isEmpty()) {
             return;
         }
-        arr[0] = arr[size];
+        arr[1] = arr[size];
         size--;
-        doSink(0);
+        doSink(1);
     }
 
     @Override
     public Pair<E, Integer> top() throws Exception {
-        return (Pair<E, Integer>) arr[0];
+        if (isEmpty()) {
+            throw new Exception("El Heap está vacío");
+        }
+        return (Pair<E, Integer>) arr[1];
     }
 
     @Override
@@ -52,9 +55,13 @@ public class Heap<E> implements PriorityQueue<E> {
     }
 
     private void doSink(int i) {
+        if (i == size || (i * 2 + 1 > max)) {
+            return;
+        }
+
         Pair<E, Integer> actual = (Pair<E, Integer>) arr[i];
-        Pair<E, Integer> rightSon = (Pair<E, Integer>) arr[i * 2 + 1];
-        Pair<E, Integer> leftSon = (Pair<E, Integer>) arr[i * 2];
+        Pair<E, Integer> rightSon = (Pair<E, Integer>) arr[i * 2 + 2];
+        Pair<E, Integer> leftSon = (Pair<E, Integer>) arr[i * 2 + 1];
         if (rightSon == null && leftSon == null) {
             return;
         }
@@ -82,17 +89,15 @@ public class Heap<E> implements PriorityQueue<E> {
     }
 
     private void doFloat(int i) {
-        if (i == 0) {
+        if (i == 1) {
             return;
         }
-        Pair<E, Integer> parent = (Pair<E, Integer>) arr[i % 2];
+        Pair<E, Integer> parent = (Pair<E, Integer>) arr[i / 2];
         Pair<E, Integer> actual = (Pair<E, Integer>) arr[i];
-        System.out.println(parent);
-        System.out.println(actual);
         if (parent.value < actual.value) {
-            arr[i % 2] = actual;
+            arr[i / 2] = actual;
             arr[i] = parent;
-            doFloat(i % 2);
+            doFloat(i / 2);
         }
     }
 

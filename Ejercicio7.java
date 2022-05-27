@@ -1,30 +1,32 @@
-import java.util.Iterator;
 
 import tads.DisjointSet;
-import tads.Graph;
-import tads.GraphWithList;
-import tads.Heap;
-import tads.List;
+import tads.MaxHeap;
 import tads.Pair;
+import tads.PriorityQueue;
 
 public class Ejercicio7 {
     public static void main(String[] args) throws Exception {
-        GraphWithList g = Graph.createGraphWithListFromInput(false);
-        ejercicio7(g);
+        MaxHeap<Integer> h = new MaxHeap<Integer>(6);
+        h.push(1, 3);
+        h.push(2, 4);
+        h.push(5, 1);
+        h.push(3, 2);
+        h.push(4, 3);
+        h.push(6, 6);
+        h.pop();
+        h.pop();
+        h.pop();
+        h.pop();
+        h.pop();
+        h.pop();
+
+        ejercicio7();
     }
 
-    public static void ejercicio7(GraphWithList g) throws Exception {
-        Heap<Pair<Integer, Integer>> pq = new Heap<Pair<Integer, Integer>>(g.getSize());
-        for (int i = 0; i < g.getSize(); i++) {
-            List<Pair<Integer, Integer>> adys = g.getEdges(i);
-            Iterator<Pair<Integer, Integer>> it = adys.iterator();
-            while (it.hasNext()) {
-                Pair<Integer, Integer> pair = it.next();
-                pq.push(new Pair<Integer, Integer>(i, pair.key), pair.value);
-            }
-        }
+    public static void ejercicio7() throws Exception {
+        MaxHeap<Pair<Integer, Integer>> pq = PriorityQueue.createMaxHeapFromGraphInput();
         int costo = 0;
-        DisjointSet ds = new DisjointSet(g.getSize());
+        DisjointSet ds = new DisjointSet(pq.size());
         while (!pq.isEmpty()) {
             Pair<Pair<Integer, Integer>, Integer> edge = (Pair<Pair<Integer, Integer>, Integer>) pq.top();
             pq.pop();
