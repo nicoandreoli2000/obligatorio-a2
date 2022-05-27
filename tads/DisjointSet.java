@@ -2,12 +2,10 @@ package tads;
 
 public class DisjointSet {
     private int[] parent;
-    private int[] rank;
     private int size;
 
     public DisjointSet(int n) {
         parent = new int[n];
-        rank = new int[n];
         size = n;
         for (int i = 0; i < parent.length; i++) {
             parent[i] = i;
@@ -25,20 +23,7 @@ public class DisjointSet {
         int xRoot = find(x);
         int yRoot = find(y);
 
-        if (xRoot == yRoot) {
-            return;
-        }
-
-        if (rank[xRoot] > rank[yRoot]) {
-            parent[xRoot] = yRoot;
-        } else if (rank[xRoot] > rank[yRoot]) {
-            parent[yRoot] = xRoot;
-        } else {
-            parent[xRoot] = yRoot;
-            rank[yRoot]++;
-        }
-
-        size--;
+        parent[yRoot] = xRoot;
     }
 
     public int size() {

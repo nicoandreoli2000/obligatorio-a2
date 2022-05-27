@@ -16,18 +16,18 @@ public class Ejercicio7 {
         int vertices = Integer.parseInt(in.nextLine());
         MaxHeap<Pair<Integer, Integer>> pq = PriorityQueue.createMaxHeapFromGraphInput(in);
         int costo = 0;
-        int count = 0;
-        DisjointSet ds = new DisjointSet(pq.size());
-        while (!pq.isEmpty() && count < vertices) {
+        int cont = 0;
+        DisjointSet ds = new DisjointSet(vertices);
+        while (!pq.isEmpty() && cont < vertices) {
             Pair<Pair<Integer, Integer>, Integer> edge = (Pair<Pair<Integer, Integer>, Integer>) pq.top();
             pq.pop();
             if (ds.find(edge.key.key) != ds.find(edge.key.value)) {
                 ds.union(edge.key.key, edge.key.value);
                 costo += edge.value;
-                count++;
+                cont++;
             }
 
         }
-        System.out.print(count == vertices - 1 ? costo : -1);
+        System.out.print(costo);
     }
 }
