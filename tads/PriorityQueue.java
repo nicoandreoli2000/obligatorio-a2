@@ -15,9 +15,7 @@ public interface PriorityQueue<E> {
 
     public int size();
 
-    public static MaxHeap<Pair<Integer, Integer>> createMaxHeapFromGraphInput() throws Exception {
-        var in = new Scanner(System.in);
-        in.nextLine();
+    public static MaxHeap<Pair<Integer, Integer>> createMaxHeapFromGraphInput(Scanner in) throws Exception {
         int length = Integer.parseInt(in.nextLine());
         MaxHeap<Pair<Integer, Integer>> heap = new MaxHeap<Pair<Integer, Integer>>(length);
         for (int i = 0; i < length; i++) {

@@ -9,10 +9,6 @@ public class DisjointSet {
         parent = new int[n];
         rank = new int[n];
         size = n;
-        makeSet();
-    }
-
-    private void makeSet() {
         for (int i = 0; i < parent.length; i++) {
             parent[i] = i;
         }
@@ -29,8 +25,9 @@ public class DisjointSet {
         int xRoot = find(x);
         int yRoot = find(y);
 
-        if (xRoot == yRoot)
+        if (xRoot == yRoot) {
             return;
+        }
 
         if (rank[xRoot] > rank[yRoot]) {
             parent[xRoot] = yRoot;
@@ -38,7 +35,6 @@ public class DisjointSet {
             parent[yRoot] = xRoot;
         } else {
             parent[xRoot] = yRoot;
-
             rank[yRoot]++;
         }
 
