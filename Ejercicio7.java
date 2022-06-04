@@ -1,10 +1,14 @@
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 import tads.DisjointSet;
+import tads.GraphWithList;
+import tads.List;
 import tads.MaxHeap;
 import tads.Pair;
 import tads.PriorityQueue;
+import tads.Stack;
 
 public class Ejercicio7 {
     public static void main(String[] args) throws Exception {
@@ -31,4 +35,5 @@ public class Ejercicio7 {
         }
         System.out.print(costo);
     }
+
 }
