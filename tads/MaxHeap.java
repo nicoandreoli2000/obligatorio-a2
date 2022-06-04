@@ -13,20 +13,19 @@ public class MaxHeap<E> implements PriorityQueue<E> {
 
     @Override
     public void push(E elem, int prio) throws Exception {
-        if (this.isFull()) {
+        if (isFull()) {
             throw new Exception("El Heap está lleno");
         }
-        size++;
-        arr[size] = new Pair<E, Integer>(elem, prio);
-        doFloat(size);
+        arr[size++] = new Pair<E, Integer>(elem, prio);
+        doFloat(size - 1);
     }
 
     @Override
     public void pop() {
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             return;
         }
-        arr[1] = arr[size];
+        arr[1] = arr[size - 1];
         size--;
         doSink(1);
     }
@@ -55,50 +54,42 @@ public class MaxHeap<E> implements PriorityQueue<E> {
     }
 
     private void doSink(int i) {
-        if (i >= size / 2) {
-            return;
-        }
-
-        Pair<E, Integer> actual = (Pair<E, Integer>) arr[i];
-        Pair<E, Integer> rightSon = (Pair<E, Integer>) arr[i * 2 + 1];
-        Pair<E, Integer> leftSon = (Pair<E, Integer>) arr[i * 2];
-        if (rightSon == null && leftSon == null) {
-            return;
-        }
-        if (leftSon == null && rightSon.value > actual.value) {
-            arr[i] = rightSon;
-            arr[i * 2 + 1] = actual;
-            return;
-        }
-        if (rightSon == null && leftSon.value > actual.value) {
-            arr[i] = leftSon;
-            arr[i * 2] = actual;
-            return;
-        }
-        if (actual.value < leftSon.value || actual.value < rightSon.value) {
-            if (leftSon.value > rightSon.value) {
-                arr[i] = leftSon;
-                arr[i * 2] = actual;
-                doSink(i * 2);
+        Pair<E, Integer> temp = (Pair<E, Integer>) arr[i];
+        while (kthChild(i, 1) < size) {
+            int c = maxChild(i);
+            Pair<E, Integer> child = (Pair<E, Integer>) arr[c];
+            if (temp.value > child.value) {
+                arr[i] = child;
             } else {
-                arr[i] = leftSon;
-                arr[i * 2 + 1] = actual;
-                doSink(i * 2 + 1);
+                break;
             }
+            i = c;
         }
+        arr[i] = temp;
     }
 
     private void doFloat(int i) {
-        if (i == 1) {
-            return;
+        Pair<E, Integer> temp = (Pair<E, Integer>) arr[i];
+        while (i > 0 && temp.value < ((Pair<E, Integer>) arr[parent(i)]).value) {
+            arr[i] = arr[parent(i)];
+            i = parent(i);
         }
-        Pair<E, Integer> parent = (Pair<E, Integer>) arr[i / 2];
-        Pair<E, Integer> actual = (Pair<E, Integer>) arr[i];
-        if (parent.value < actual.value) {
-            arr[i / 2] = actual;
-            arr[i] = parent;
-            doFloat(i / 2);
-        }
+        arr[i] = temp;
+    }
+
+    private int parent(int i) {
+        return (i - 1) / 2;
+    }
+
+    private int kthChild(int i, int k) {
+        return 2 * i + k;
+    }
+
+    private int maxChild(int i) {
+        int leftChild = kthChild(i, 1);
+        int rightChild = kthChild(i, 2);
+        return ((Pair<E, Integer>) arr[leftChild]).value < ((Pair<E, Integer>) arr[rightChild]).value ? leftChild
+                : rightChild;
     }
 
     public void printHeap() {

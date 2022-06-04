@@ -16,7 +16,6 @@ public class Ejercicio7 {
         Scanner in = new Scanner(System.in);
         int vertices = Integer.parseInt(in.nextLine());
         MaxHeap<Pair<Integer, Integer>> pq = PriorityQueue.createMaxHeapFromGraphInput(in);
-        pq.printHeap();
         int costo = 0;
         int cont = 0;
         DisjointSet ds = new DisjointSet(vertices);
