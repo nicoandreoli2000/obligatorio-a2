@@ -3,12 +3,10 @@ package tads;
 public class MaxHeap<E> implements PriorityQueue<E> {
     private Object[] arr;
     private int size;
-    private int max;
 
     public MaxHeap(int maxSize) {
         arr = new Object[maxSize + 1];
         size = 0;
-        max = maxSize;
     }
 
     @Override
@@ -16,7 +14,8 @@ public class MaxHeap<E> implements PriorityQueue<E> {
         if (isFull()) {
             throw new Exception("El Heap está lleno");
         }
-        arr[size++] = new Pair<E, Integer>(elem, prio);
+        arr[size] = new Pair<E, Integer>(elem, prio);
+        size++;
         doFloat(size - 1);
     }
 
@@ -25,9 +24,9 @@ public class MaxHeap<E> implements PriorityQueue<E> {
         if (isEmpty()) {
             return;
         }
-        arr[1] = arr[size - 1];
+        arr[0] = arr[size - 1];
         size--;
-        doSink(1);
+        doSink(0);
     }
 
     @Override
@@ -35,7 +34,7 @@ public class MaxHeap<E> implements PriorityQueue<E> {
         if (isEmpty()) {
             throw new Exception("El Heap está vacío");
         }
-        return (Pair<E, Integer>) arr[1];
+        return (Pair<E, Integer>) arr[0];
     }
 
     @Override
@@ -45,7 +44,7 @@ public class MaxHeap<E> implements PriorityQueue<E> {
 
     @Override
     public boolean isFull() {
-        return size == max;
+        return size == arr.length;
     }
 
     @Override
@@ -54,9 +53,10 @@ public class MaxHeap<E> implements PriorityQueue<E> {
     }
 
     private void doSink(int i) {
+        int c;
         Pair<E, Integer> temp = (Pair<E, Integer>) arr[i];
         while (kthChild(i, 1) < size) {
-            int c = maxChild(i);
+            c = maxChild(i);
             Pair<E, Integer> child = (Pair<E, Integer>) arr[c];
             if (temp.value > child.value) {
                 arr[i] = child;
@@ -93,7 +93,7 @@ public class MaxHeap<E> implements PriorityQueue<E> {
     }
 
     public void printHeap() {
-        for (int i = 1; i < max; i++) {
+        for (int i = 1; i < arr.length; i++) {
             Pair<Pair<Integer, Integer>, Integer> pair = (Pair<Pair<Integer, Integer>, Integer>) arr[i];
             System.out.println((pair.key.key + 1) + " -> " + (pair.key.value + 1) + " - " + pair.value);
         }
