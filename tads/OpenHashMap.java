@@ -5,7 +5,7 @@ public class OpenHashMap<K, V> implements Map<K, V> {
     private int size;
 
     public OpenHashMap(int expectedSize) {
-        table = new Object[expectedSize * 2 - 1];
+        table = new Object[expectedSize];
         size = 0;
     }
 

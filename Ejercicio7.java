@@ -11,7 +11,6 @@ public class Ejercicio7 {
     }
 
     public static void ejercicio7() throws Exception {
-        // TODO: Fijarse si no es conexo y devolver -1
         Scanner in = new Scanner(System.in);
         int vertices = Integer.parseInt(in.nextLine());
         MaxHeap<Pair<Integer, Integer>> pq = PriorityQueue.createMaxHeapFromGraphInput(in);
@@ -28,7 +27,7 @@ public class Ejercicio7 {
             }
 
         }
-        if (cont == vertices) {
+        if (cont == vertices - 1) {
             System.out.print(costo);
         } else {
             System.out.print(-1);
