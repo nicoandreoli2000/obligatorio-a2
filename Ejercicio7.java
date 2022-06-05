@@ -28,7 +28,11 @@ public class Ejercicio7 {
             }
 
         }
-        System.out.print(costo);
+        if (cont == vertices) {
+            System.out.print(costo);
+        } else {
+            System.out.print(-1);
+        }
     }
 
 }

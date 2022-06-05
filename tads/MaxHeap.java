@@ -14,8 +14,7 @@ public class MaxHeap<E> implements PriorityQueue<E> {
         if (isFull()) {
             throw new Exception("El Heap está lleno");
         }
-        arr[size] = new Pair<E, Integer>(elem, prio);
-        size++;
+        arr[size++] = new Pair<E, Integer>(elem, prio);
         doFloat(size - 1);
     }
 
