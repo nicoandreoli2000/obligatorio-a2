@@ -52,10 +52,9 @@ public class MaxHeap<E> implements PriorityQueue<E> {
     }
 
     private void doSink(int i) {
-        int c;
         Pair<E, Integer> temp = (Pair<E, Integer>) arr[i];
         while (kthChild(i, 1) < size) {
-            c = maxChild(i);
+            int c = maxChild(i);
             Pair<E, Integer> child = (Pair<E, Integer>) arr[c];
             if (temp.value > child.value) {
                 arr[i] = child;
@@ -90,12 +89,4 @@ public class MaxHeap<E> implements PriorityQueue<E> {
         return ((Pair<E, Integer>) arr[leftChild]).value < ((Pair<E, Integer>) arr[rightChild]).value ? leftChild
                 : rightChild;
     }
-
-    public void printHeap() {
-        for (int i = 1; i < arr.length; i++) {
-            Pair<Pair<Integer, Integer>, Integer> pair = (Pair<Pair<Integer, Integer>, Integer>) arr[i];
-            System.out.println((pair.key.key + 1) + " -> " + (pair.key.value + 1) + " - " + pair.value);
-        }
-    }
-
 }
