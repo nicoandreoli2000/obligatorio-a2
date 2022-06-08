@@ -11,6 +11,11 @@ public class List<T> implements Iterable<T> {
     size = 0;
   }
 
+  public List(T elem) {
+    root = new Node<T>(elem);
+    size = 1;
+  }
+
   public void insert(T elem) {
     Node<T> newNode = new Node<T>(elem);
     newNode.next = root;
