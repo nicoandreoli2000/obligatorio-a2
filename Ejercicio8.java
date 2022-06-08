@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 import tads.List;
 import tads.MinHeap;
 import tads.Pair;
@@ -30,8 +29,6 @@ public class Ejercicio8 {
         MinHeap<List<Integer>> heap = new MinHeap<List<Integer>>(n);
         heap.push(new List(0), scheduling[0].value);
         for (int i = 1; i < n; i++) {
-            heap.print();
-            System.out.println("-");
             Pair<List<Integer>, Integer> pair = heap.top();
 
             if (scheduling[i].key > pair.key.first()) {
@@ -40,7 +37,6 @@ public class Ejercicio8 {
                 heap.push(pair.key, scheduling[i].value);
             } else {
                 heap.push(new List(i), scheduling[i].value);
-
             }
         }
 
