@@ -89,4 +89,10 @@ public class MinHeap<E> implements PriorityQueue<E> {
         return ((Pair<E, Integer>) arr[leftChild]).value < ((Pair<E, Integer>) arr[rightChild]).value ? leftChild
                 : rightChild;
     }
+
+    public void print() {
+        for (int i = 0; i < size; i++) {
+            System.out.println(arr[i].toString());
+        }
+    }
 }

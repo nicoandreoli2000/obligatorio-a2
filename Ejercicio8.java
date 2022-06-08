@@ -15,7 +15,7 @@ public class Ejercicio8 {
         int n = Integer.parseInt(in.nextLine());
 
         // O(N)
-        Pair<Integer, Integer>[] scheduling = (Pair<Integer, Integer>[]) new Object[n];
+        Pair<Integer, Integer>[] scheduling = new Pair[n];
         for (int i = 0; i < n; i++) {
             String[] arr = in.nextLine().split(" ");
             int from = Integer.parseInt(arr[0]);
@@ -27,22 +27,24 @@ public class Ejercicio8 {
         MergeSort.sort(scheduling, 0, n - 1);
 
         // O(N.log(N))
-        int min = 1;
         MinHeap<List<Integer>> heap = new MinHeap<List<Integer>>(n);
         heap.push(new List(0), scheduling[0].value);
         for (int i = 1; i < n; i++) {
+            heap.print();
+            System.out.println("-");
             Pair<List<Integer>, Integer> pair = heap.top();
-            List<Integer> list = pair.key;
-            heap.pop();
-            if (scheduling[i].key >= list.first()) {
-                list.insert(i);
-                heap.push(list, scheduling[i].value);
+
+            if (scheduling[i].key > pair.key.first()) {
+                pair.key.insert(i);
+                heap.pop();
+                heap.push(pair.key, scheduling[i].value);
             } else {
-                heap.push(new List(1), scheduling[i].value);
+                heap.push(new List(i), scheduling[i].value);
+
             }
         }
 
-        System.out.println(min);
+        System.out.println(heap.size());
 
         in.close();
 

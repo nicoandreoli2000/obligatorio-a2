@@ -8,8 +8,8 @@ public class MergeSort {
         int n1 = m - l + 1;
         int n2 = r - m;
 
-        Pair<Integer, Integer>[] L = (Pair<Integer, Integer>[]) new Object[n1];
-        Pair<Integer, Integer>[] R = (Pair<Integer, Integer>[]) new Object[n2];
+        Pair<Integer, Integer>[] L = new Pair[n1];
+        Pair<Integer, Integer>[] R = new Pair[n2];
 
         for (int i = 0; i < n1; ++i)
             L[i] = arr[l + i];

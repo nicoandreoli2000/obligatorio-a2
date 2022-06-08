@@ -107,4 +107,14 @@ public class List<T> implements Iterable<T> {
       sizeActual = startSize;
     }
   }
+
+  @Override
+  public String toString() {
+    ListIterator it = new ListIterator(root, size);
+    String list = "";
+    while (it.hasNext()) {
+      list += it.next() + " -> ";
+    }
+    return list;
+  }
 }
