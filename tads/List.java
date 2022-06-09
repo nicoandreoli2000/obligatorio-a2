@@ -108,13 +108,4 @@ public class List<T> implements Iterable<T> {
     }
   }
 
-  @Override
-  public String toString() {
-    ListIterator it = new ListIterator(root, size);
-    String list = "";
-    while (it.hasNext()) {
-      list += it.next() + " -> ";
-    }
-    return list;
-  }
 }

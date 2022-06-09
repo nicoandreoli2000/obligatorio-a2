@@ -13,8 +13,9 @@ public class Ejercicio8 {
         Scanner in = new Scanner(System.in);
         int n = Integer.parseInt(in.nextLine());
 
-        // O(N)
         Pair<Integer, Integer>[] scheduling = new Pair[n];
+
+        // O(N)
         for (int i = 0; i < n; i++) {
             String[] arr = in.nextLine().split(" ");
             int from = Integer.parseInt(arr[0]);
@@ -31,7 +32,7 @@ public class Ejercicio8 {
         for (int i = 1; i < n; i++) {
             Pair<List<Integer>, Integer> pair = heap.top();
 
-            if (scheduling[i].key > pair.key.first()) {
+            if (scheduling[i].key > pair.value) {
                 pair.key.insert(i);
                 heap.pop();
                 heap.push(pair.key, scheduling[i].value);

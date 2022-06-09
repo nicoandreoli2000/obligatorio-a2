@@ -19,7 +19,8 @@ public class MinHeap<E> implements PriorityQueue<E> {
 
     @Override
     public Pair<E, Integer> top() throws Exception {
-        return heap.top();
+        Pair<E, Integer> res = heap.top();
+        return new Pair<E, Integer>(res.key, -res.value);
     }
 
     @Override
