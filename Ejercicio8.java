@@ -12,7 +12,6 @@ public class Ejercicio8 {
     public static void ejercicio8() throws Exception {
         Scanner in = new Scanner(System.in);
         int n = Integer.parseInt(in.nextLine());
-
         Pair<Integer, Integer>[] scheduling = new Pair[n];
 
         // O(N)
@@ -28,16 +27,15 @@ public class Ejercicio8 {
 
         // O(N.log(N))
         MinHeap<List<Integer>> heap = new MinHeap<List<Integer>>(n);
-        heap.push(new List(0), scheduling[0].value);
+        heap.push(new List<Integer>(0), scheduling[0].value);
         for (int i = 1; i < n; i++) {
             Pair<List<Integer>, Integer> pair = heap.top();
-
-            if (scheduling[i].key > pair.value) {
+            if (scheduling[i].key >= pair.value) {
                 pair.key.insert(i);
                 heap.pop();
                 heap.push(pair.key, scheduling[i].value);
             } else {
-                heap.push(new List(i), scheduling[i].value);
+                heap.push(new List<Integer>(i), scheduling[i].value);
             }
         }
 

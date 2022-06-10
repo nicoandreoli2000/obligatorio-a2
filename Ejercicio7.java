@@ -1,9 +1,9 @@
 
 import java.util.Scanner;
 import tads.DisjointSet;
-import tads.MaxHeap;
 import tads.Pair;
 import tads.PriorityQueue;
+import tads.MinHeap;
 
 public class Ejercicio7 {
     public static void main(String[] args) throws Exception {
@@ -13,7 +13,7 @@ public class Ejercicio7 {
     public static void ejercicio7() throws Exception {
         Scanner in = new Scanner(System.in);
         int vertices = Integer.parseInt(in.nextLine());
-        MaxHeap<Pair<Integer, Integer>> pq = PriorityQueue.createMaxHeapFromGraphInput(in);
+        MinHeap<Pair<Integer, Integer>> pq = PriorityQueue.createMinHeapFromGraphInput(in);
         int costo = 0;
         int cont = 0;
         DisjointSet ds = new DisjointSet(vertices);
