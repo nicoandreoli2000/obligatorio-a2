@@ -31,7 +31,7 @@ public class Ejercicio10 {
         in.close();
     }
 
-    public static boolean isSubset(int set[], int n, int sum) throws Exception {
+    public static boolean isSubset(int set[], int n, int sum) {
 
         boolean subset[][] = new boolean[sum + 1][n + 1];
 
