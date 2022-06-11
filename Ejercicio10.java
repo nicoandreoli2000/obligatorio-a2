@@ -21,8 +21,7 @@ public class Ejercicio10 {
 
         for (int i = 0; i < m; i++) {
             int sum = Integer.parseInt(in.nextLine());
-            boolean isSubset = isSubset(set, n, sum);
-            System.out.print(isSubset ? 1 : 0);
+            System.out.print(isSubset(set, n, sum) ? 1 : 0);
             if (i != m - 1) {
                 System.out.println();
             }
