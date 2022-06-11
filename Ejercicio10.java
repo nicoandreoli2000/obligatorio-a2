@@ -16,7 +16,7 @@ public class Ejercicio10 {
             set[i] = Integer.parseInt(in.nextLine());
         }
 
-        int cota = Integer.parseInt(in.nextLine());
+        in.nextLine();
         int m = Integer.parseInt(in.nextLine());
 
         for (int i = 0; i < m; i++) {
