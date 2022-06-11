@@ -17,13 +17,13 @@ public class Ejercicio10 {
         }
 
         int cota = Integer.parseInt(in.nextLine());
-        int p = Integer.parseInt(in.nextLine());
+        int m = Integer.parseInt(in.nextLine());
 
-        for (int i = 0; i < p; i++) {
+        for (int i = 0; i < m; i++) {
             int sum = Integer.parseInt(in.nextLine());
             boolean isSubset = isSubset(set, n, sum);
             System.out.print(isSubset ? 1 : 0);
-            if (i != p - 1) {
+            if (i != m - 1) {
                 System.out.println();
             }
         }

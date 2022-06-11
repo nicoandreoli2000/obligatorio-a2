@@ -1,8 +1,5 @@
 import java.util.Scanner;
-
 import javax.lang.model.type.NullType;
-
-import tads.List;
 import tads.MinHeap;
 import tads.Pair;
 import utils.MergeSort;
