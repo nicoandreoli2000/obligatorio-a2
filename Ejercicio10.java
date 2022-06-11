@@ -23,7 +23,7 @@ public class Ejercicio10 {
 
         for (int i = 0; i < m; i++) {
             int sum = Integer.parseInt(in.nextLine());
-            System.out.print(res[sum][i] ? 1 : 0);
+            System.out.print(res[i][sum] ? 1 : 0);
             if (i != m - 1) {
                 System.out.println();
             }
@@ -34,13 +34,13 @@ public class Ejercicio10 {
 
     public static boolean[][] subsetSum(int set[], int n, int cota) {
 
-        boolean matrix[][] = new boolean[n + 1][cota + 1];
+        boolean matrix[][] = new boolean[n][cota + 1];
 
-        for (int i = 0; i <= n; i++) {
+        for (int i = 0; i < n; i++) {
             matrix[i][0] = true;
         }
 
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i < n; i++) {
             for (int j = 1; j <= cota; j++) {
                 if (j - set[i - 1] >= 0) {
                     matrix[i][j] = matrix[i - 1][j] || matrix[i - 1][j - set[i - 1]];
