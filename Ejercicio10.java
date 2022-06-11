@@ -16,12 +16,14 @@ public class Ejercicio10 {
             set[i] = Integer.parseInt(in.nextLine());
         }
 
-        in.nextLine();
+        int cota = Integer.parseInt(in.nextLine());
+        boolean[][] res = subset(set, n, cota);
+
         int m = Integer.parseInt(in.nextLine());
 
         for (int i = 0; i < m; i++) {
             int sum = Integer.parseInt(in.nextLine());
-            System.out.print(isSubset(set, n, sum) ? 1 : 0);
+            System.out.print(res[sum][i] ? 1 : 0);
             if (i != m - 1) {
                 System.out.println();
             }
@@ -30,17 +32,17 @@ public class Ejercicio10 {
         in.close();
     }
 
-    public static boolean isSubset(int set[], int n, int sum) {
+    public static boolean[][] subset(int set[], int n, int cota) {
 
-        boolean subset[][] = new boolean[sum + 1][n + 1];
+        boolean subset[][] = new boolean[cota + 1][n + 1];
 
         for (int i = 0; i <= n; i++)
             subset[0][i] = true;
 
-        for (int i = 1; i <= sum; i++)
+        for (int i = 1; i <= cota; i++)
             subset[i][0] = false;
 
-        for (int i = 1; i <= sum; i++) {
+        for (int i = 1; i <= cota; i++) {
             for (int j = 1; j <= n; j++) {
                 subset[i][j] = subset[i][j - 1];
                 if (i >= set[j - 1])
@@ -48,6 +50,6 @@ public class Ejercicio10 {
             }
         }
 
-        return subset[sum][n];
+        return subset;
     }
 }
