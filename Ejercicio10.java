@@ -42,7 +42,7 @@ public class Ejercicio10 {
 
         for (int i = 1; i < n; i++) {
             for (int j = 1; j <= cota; j++) {
-                if (j - set[i - 1] >= 0) {
+                if (j >= set[i - 1]) {
                     matrix[i][j] = matrix[i - 1][j] || matrix[i - 1][j - set[i - 1]];
                 } else {
                     matrix[i][j] = matrix[i - 1][j];
