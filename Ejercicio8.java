@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import tads.List;
+import javax.lang.model.type.NullType;
 import tads.MinHeap;
 import tads.Pair;
 import utils.MergeSort;
@@ -26,16 +26,15 @@ public class Ejercicio8 {
         MergeSort.sort(scheduling, 0, n - 1);
 
         // O(N.log(N))
-        MinHeap<List<Integer>> heap = new MinHeap<List<Integer>>(n);
-        heap.push(new List<Integer>(0), scheduling[0].value);
+        MinHeap<NullType> heap = new MinHeap<NullType>(n);
+        heap.push(null, scheduling[0].value);
         for (int i = 1; i < n; i++) {
-            Pair<List<Integer>, Integer> pair = heap.top();
+            Pair<NullType, Integer> pair = heap.top();
             if (scheduling[i].key >= pair.value) {
-                pair.key.insert(i);
                 heap.pop();
-                heap.push(pair.key, scheduling[i].value);
+                heap.push(null, scheduling[i].value);
             } else {
-                heap.push(new List<Integer>(i), scheduling[i].value);
+                heap.push(null, scheduling[i].value);
             }
         }
 
