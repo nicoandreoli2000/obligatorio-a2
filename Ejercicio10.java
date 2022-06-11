@@ -17,7 +17,7 @@ public class Ejercicio10 {
         }
 
         int cota = Integer.parseInt(in.nextLine());
-        boolean[][] res = subset(set, n, cota);
+        boolean[][] res = subsetSum(set, n, cota);
 
         int m = Integer.parseInt(in.nextLine());
 
@@ -32,23 +32,24 @@ public class Ejercicio10 {
         in.close();
     }
 
-    public static boolean[][] subset(int set[], int n, int cota) {
+    public static boolean[][] subsetSum(int set[], int n, int cota) {
 
-        boolean subset[][] = new boolean[cota + 1][n]; // +1 para incluir el cero
+        boolean matrix[][] = new boolean[n + 1][cota + 1];
 
-        for (int i = 0; i < n; i++) {
-            subset[0][i] = true;
+        for (int i = 0; i <= n; i++) {
+            matrix[i][0] = true;
         }
 
-        for (int i = 1; i <= cota; i++) {
-            for (int j = 1; j < n; j++) {
-                subset[i][j] = subset[i][j - 1];
-                if (i >= set[j - 1]) {
-                    subset[i][j] = subset[i][j] || subset[i - set[j - 1]][j - 1];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= cota; j++) {
+                if (j - set[i - 1] >= 0) {
+                    matrix[i][j] = matrix[i - 1][j] || matrix[i - 1][j - set[i - 1]];
+                } else {
+                    matrix[i][j] = matrix[i - 1][j];
                 }
             }
         }
 
-        return subset;
+        return matrix;
     }
 }
