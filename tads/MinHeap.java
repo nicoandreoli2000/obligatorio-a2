@@ -1,10 +1,10 @@
 package tads;
 
-public class MaxHeap<E> implements PriorityQueue<E> {
+public class MinHeap<E> implements PriorityQueue<E> {
     private Object[] arr;
     private int size;
 
-    public MaxHeap(int maxSize) {
+    public MinHeap(int maxSize) {
         arr = new Object[maxSize + 1];
         size = 0;
     }

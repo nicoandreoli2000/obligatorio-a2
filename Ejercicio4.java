@@ -1,5 +1,4 @@
 import java.util.Iterator;
-
 import tads.*;
 
 public class Ejercicio4 {

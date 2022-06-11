@@ -15,9 +15,9 @@ public interface PriorityQueue<E> {
 
     public int size();
 
-    public static MaxHeap<Pair<Integer, Integer>> createMaxHeapFromGraphInput(Scanner in) throws Exception {
+    public static MinHeap<Pair<Integer, Integer>> createMinHeapFromGraphInput(Scanner in) throws Exception {
         int length = Integer.parseInt(in.nextLine());
-        MaxHeap<Pair<Integer, Integer>> heap = new MaxHeap<Pair<Integer, Integer>>(length);
+        MinHeap<Pair<Integer, Integer>> heap = new MinHeap<Pair<Integer, Integer>>(length);
         for (int i = 0; i < length; i++) {
             String line = in.nextLine();
             String[] arr = line.split(" ");
