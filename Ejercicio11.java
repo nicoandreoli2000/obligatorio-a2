@@ -60,7 +60,16 @@ public class Ejercicio11 {
             return solOpt;
         }
         if (origin.key == destiny.key && origin.value == destiny.value) {
-            return solCand.value > solOpt.value ? solOpt : solCand;
+            if (solCand.value < solOpt.value) {
+
+                // var ret = new List();
+                // var it = solCand.key.iterator();
+                // while (it.hasNext()) {
+                // ret.insert(it.next());
+                // }
+                // return new Pair(ret, solCand.value);
+            }
+            return solOpt;
         }
 
         int[][] movs = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
@@ -71,14 +80,14 @@ public class Ejercicio11 {
             int m = matrix.length - 1;
             int n = matrix[0].length - 1;
             if (newOrigin.key >= 1 && newOrigin.key <= m && newOrigin.value >= 1 && newOrigin.value <= n) {
-                System.out.print("Origen: " + newOrigin.key + "-" + newOrigin.value + "   ");
+                // System.out.print("Origen: " + newOrigin.key + "-" + newOrigin.value + " ");
                 int weight = matrix[newOrigin.key][newOrigin.value];
                 if (weight != 0 && !solCand.key.contains(newOrigin)) {
                     solCand.key.insert(newOrigin);
                     solCand.value += weight;
                     solOpt = laberintoBT(solOpt, solCand, matrix, newOrigin, destiny);
                     solCand.key.delete(newOrigin);
-                    solCand.value = weight;
+                    solCand.value -= weight;
                 }
             }
         }
