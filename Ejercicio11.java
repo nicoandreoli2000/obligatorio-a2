@@ -35,16 +35,19 @@ public class Ejercicio11 {
             int yi = Integer.parseInt(line[1]);
             int xf = Integer.parseInt(line[2]);
             int yf = Integer.parseInt(line[3]);
-            Pair<List<Pair<Integer, Integer>>, Integer> sol = laberintoBT(new List<Integer>(), new List<Integer>(),
+            Pair<List<Pair<Integer, Integer>>, Integer> sol = laberintoBT(null, null,
                     matrix,
                     new Pair<Integer, Integer>(xi, yi), new Pair<Integer, Integer>(xf, yf));
-            System.out.println(sol.value > k ? 0 : sol.value);
+
+            if (sol != null)
+                System.out.println(sol.value > k ? 0 : sol.value);
         }
 
         in.close();
     }
 
-    public static Pair<List<Pair<Integer, Integer>>, Integer> laberintoBT(List<Integer> solOpt, List<Integer> solCand,
+    public static Pair<List<Pair<Integer, Integer>>, Integer> laberintoBT(Pair<List<Integer>, Integer> solOpt,
+            Pair<List<Integer>, Integer> solCand,
             int[][] matrix, Pair<Integer, Integer> ci,
             Pair<Integer, Integer> cf) {
         return null;

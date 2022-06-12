@@ -1,5 +1,6 @@
 
 import java.util.Scanner;
+
 import tads.DisjointSet;
 import tads.Pair;
 import tads.PriorityQueue;
