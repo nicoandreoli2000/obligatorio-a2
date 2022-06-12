@@ -85,6 +85,17 @@ public class List<T> implements Iterable<T> {
     return new ListIterator(root, size);
   }
 
+  @Override
+  public String toString() {
+    Iterator it = new ListIterator(root, size);
+    String res = "";
+    while (it.hasNext()) {
+      res += " -> " + it.next();
+    }
+    return res + " NULL";
+
+  }
+
   private class ListIterator implements Iterator<T> {
     private Node<T> actual;
     private int sizeActual;
