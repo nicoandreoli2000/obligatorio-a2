@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+import tads.List;
+import tads.Pair;
+
 public class Ejercicio11 {
     public static void main(String[] args) throws Exception {
         ejercicio11();
@@ -32,14 +35,18 @@ public class Ejercicio11 {
             int yi = Integer.parseInt(line[1]);
             int xf = Integer.parseInt(line[2]);
             int yf = Integer.parseInt(line[3]);
-            int costoMin = laberintoBT(matrix, xi, yi, xf, yf);
-            System.out.println(costoMin > k ? 0 : costoMin);
+            Pair<List<Pair<Integer, Integer>>, Integer> sol = laberintoBT(new List<Integer>(), new List<Integer>(),
+                    matrix,
+                    new Pair<Integer, Integer>(xi, yi), new Pair<Integer, Integer>(xf, yf));
+            System.out.println(sol.value > k ? 0 : sol.value);
         }
 
         in.close();
     }
 
-    public static int laberintoBT(int[][] matrix, int xi, int yi, int xf, int yf) {
-        return 0;
+    public static Pair<List<Pair<Integer, Integer>>, Integer> laberintoBT(List<Integer> solOpt, List<Integer> solCand,
+            int[][] matrix, Pair<Integer, Integer> ci,
+            Pair<Integer, Integer> cf) {
+        return null;
     }
 }
