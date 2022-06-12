@@ -18,12 +18,12 @@ public class Ejercicio11 {
 
         int k = Integer.parseInt(in.nextLine());
 
-        int matrix[][] = new int[m + 1][n + 1];
+        Pair<Integer, Boolean> matrix[][] = new Pair[m + 1][n + 1];
 
         for (int j = 1; j <= n; j++) {
             String[] line = in.nextLine().split(" ");
             for (int i = 0; i < m; i++) {
-                matrix[i][j] = Integer.parseInt(line[i]);
+                matrix[i][j] = new Pair<Integer, Boolean>(Integer.parseInt(line[i]), false);
             }
         }
 
@@ -35,7 +35,15 @@ public class Ejercicio11 {
             int yi = Integer.parseInt(line[1]);
             int xf = Integer.parseInt(line[2]);
             int yf = Integer.parseInt(line[3]);
-            Pair<List<Pair<Integer, Integer>>, Integer> sol = laberintoBT(null, null,
+
+            matrix[xi][yi].value = true;
+
+            Pair<List<Pair<Integer, Integer>>, Integer> solOpt = new Pair(new List(), 0);
+            Pair<List<Pair<Integer, Integer>>, Integer> solCand = new Pair(new List(new Pair(xi, yi)), 0);
+
+            Pair<List<Pair<Integer, Integer>>, Integer> sol = laberintoBT(
+                    solOpt,
+                    solCand,
                     matrix,
                     new Pair<Integer, Integer>(xi, yi), new Pair<Integer, Integer>(xf, yf));
 
@@ -46,10 +54,39 @@ public class Ejercicio11 {
         in.close();
     }
 
-    public static Pair<List<Pair<Integer, Integer>>, Integer> laberintoBT(Pair<List<Integer>, Integer> solOpt,
-            Pair<List<Integer>, Integer> solCand,
-            int[][] matrix, Pair<Integer, Integer> ci,
-            Pair<Integer, Integer> cf) {
-        return null;
+    public static Pair<List<Pair<Integer, Integer>>, Integer> laberintoBT(
+            Pair<List<Pair<Integer, Integer>>, Integer> solOpt,
+            Pair<List<Pair<Integer, Integer>>, Integer> solCand,
+            Pair<Integer, Boolean>[][] matrix, Pair<Integer, Integer> origin,
+            Pair<Integer, Integer> destiny) {
+        if (solCand.value > solOpt.value) {
+            return solOpt;
+        }
+        if (origin.key == destiny.key && origin.value == destiny.value) {
+            return solCand.value > solOpt.value ? solOpt : solCand;
+        }
+
+        int[][] movs = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
+
+        for (int i = 0; i < movs.length; i++) {
+            Pair<Integer, Integer> newOrigin = new Pair<Integer, Integer>(origin.key + movs[i][0],
+                    origin.value + movs[i][1]);
+            int n = matrix.length;
+            int m = matrix[0].length;
+            if (newOrigin.key >= 1 && newOrigin.key <= m && newOrigin.value >= 1 && newOrigin.value <= n) {
+                var pos = matrix[newOrigin.key][newOrigin.value];
+                if (pos != null && !pos.value) {
+                    pos.value = true;
+                    solCand.key.insert(newOrigin);
+                    solCand.value += pos.key;
+                    solOpt = laberintoBT(solOpt, solCand, matrix, newOrigin, destiny);
+                    solCand.key.delete(newOrigin);
+                    solCand.value -= pos.key;
+                    pos.value = false;
+                }
+            }
+        }
+
+        return solOpt;
     }
 }

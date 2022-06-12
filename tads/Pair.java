@@ -24,7 +24,7 @@ public class Pair<K, V> {
 
     @Override
     public boolean equals(Object other) {
-        return key.equals(((Pair<K, V>) other).key);
+        return key.equals(((Pair<K, V>) other).key) && value.equals(((Pair<K, V>) other).value);
     }
 
     @Override
