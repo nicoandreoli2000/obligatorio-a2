@@ -71,7 +71,7 @@ public class Ejercicio11 {
             int m = matrix.length - 1;
             int n = matrix[0].length - 1;
             if (newOrigin.key >= 1 && newOrigin.key <= m && newOrigin.value >= 1 && newOrigin.value <= n) {
-                // System.out.print("Origen: " + newOrigin.key + "-" + newOrigin.value);
+                System.out.print("Origen: " + newOrigin.key + "-" + newOrigin.value + "   ");
                 int weight = matrix[newOrigin.key][newOrigin.value];
                 if (weight != 0 && !solCand.key.contains(newOrigin)) {
                     solCand.key.insert(newOrigin);
