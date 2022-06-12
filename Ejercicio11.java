@@ -13,17 +13,17 @@ public class Ejercicio11 {
 
         String[] dimensions = in.nextLine().split(" ");
 
-        int m = Integer.parseInt(dimensions[0]);
-        int n = Integer.parseInt(dimensions[1]);
+        int c = Integer.parseInt(dimensions[0]);
+        int f = Integer.parseInt(dimensions[1]);
 
         int k = Integer.parseInt(in.nextLine());
 
-        Pair<Integer, Boolean> matrix[][] = new Pair[m + 1][n + 1];
+        Pair<Integer, Boolean> matrix[][] = new Pair[f + 1][c + 1];
 
-        for (int j = 1; j <= n; j++) {
+        for (int i = 1; i <= f; i++) {
             String[] line = in.nextLine().split(" ");
-            for (int i = 0; i < m; i++) {
-                matrix[i][j] = new Pair<Integer, Boolean>(Integer.parseInt(line[i]), false);
+            for (int j = 1; j <= c; j++) {
+                matrix[i][j] = new Pair<Integer, Boolean>(Integer.parseInt(line[j - 1]), false);
             }
         }
 
@@ -47,8 +47,7 @@ public class Ejercicio11 {
                     matrix,
                     new Pair<Integer, Integer>(xi, yi), new Pair<Integer, Integer>(xf, yf));
 
-            if (sol != null)
-                System.out.println(sol.value > k ? 0 : sol.value);
+            System.out.println(sol.value > k ? 0 : sol.value);
         }
 
         in.close();
