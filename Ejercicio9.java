@@ -24,7 +24,6 @@ public class Ejercicio9 {
             int n1 = Integer.parseInt(arr[0]);
             int k = Integer.parseInt(arr[1]);
             long res = dp[n1]/(dp[k]*(dp[n1-k]));
-            //long res2 = 
             System.out.println(res);
             a++;
         }
