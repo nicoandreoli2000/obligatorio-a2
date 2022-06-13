@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import tads.Coord;
 import tads.List;
 import tads.Pair;
 
@@ -36,14 +37,14 @@ public class Ejercicio11 {
             int xf = Integer.parseInt(line[2]);
             int yf = Integer.parseInt(line[3]);
 
-            Pair<List<Pair<Integer, Integer>>, Integer> solOpt = new Pair(new List(), Integer.MAX_VALUE);
-            Pair<List<Pair<Integer, Integer>>, Integer> solCand = new Pair(new List(new Pair(xi, yi)), matrix[xi][yi]);
+            Pair<List<Coord>, Integer> solOpt = new Pair(new List(), Integer.MAX_VALUE);
+            Pair<List<Coord>, Integer> solCand = new Pair(new List(new Coord(xi, yi)), matrix[xi][yi]);
 
-            Pair<List<Pair<Integer, Integer>>, Integer> sol = laberintoBT(
+            Pair<List<Coord>, Integer> sol = laberintoBT(
                     solOpt,
                     solCand,
                     matrix,
-                    new Pair<Integer, Integer>(xi, yi), new Pair<Integer, Integer>(xf, yf));
+                    new Coord(xi, yi), new Coord(xf, yf));
 
             System.out.println(sol.value > k ? 0 : sol.value);
         }
@@ -51,29 +52,29 @@ public class Ejercicio11 {
         in.close();
     }
 
-    public static Pair<List<Pair<Integer, Integer>>, Integer> laberintoBT(
-            Pair<List<Pair<Integer, Integer>>, Integer> solOpt,
-            Pair<List<Pair<Integer, Integer>>, Integer> solCand,
-            int[][] matrix, Pair<Integer, Integer> origin,
-            Pair<Integer, Integer> destiny) throws Exception {
+    public static Pair<List<Coord>, Integer> laberintoBT(
+            Pair<List<Coord>, Integer> solOpt,
+            Pair<List<Coord>, Integer> solCand,
+            int[][] matrix, Coord origin,
+            Coord destiny) throws Exception {
         if (solCand.value > solOpt.value) {
             return solOpt;
         }
-        if (origin.key == destiny.key && origin.value == destiny.value) {
+        if (origin.x == destiny.x && origin.y == destiny.y) {
             return solCand.value < solOpt.value
-                    ? new Pair<List<Pair<Integer, Integer>>, Integer>(solCand.key.clone(), solCand.value)
+                    ? new Pair<List<Coord>, Integer>(solCand.key.clone(), solCand.value)
                     : solOpt;
         }
 
         int[][] movs = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
 
         for (int i = 0; i < movs.length; i++) {
-            Pair<Integer, Integer> newOrigin = new Pair<Integer, Integer>(origin.key + movs[i][0],
-                    origin.value + movs[i][1]);
+            Coord newOrigin = new Coord(origin.x + movs[i][0],
+                    origin.y + movs[i][1]);
             int m = matrix.length - 1;
             int n = matrix[0].length - 1;
-            if (newOrigin.key >= 1 && newOrigin.key <= m && newOrigin.value >= 1 && newOrigin.value <= n) {
-                int weight = matrix[newOrigin.key][newOrigin.value];
+            if (newOrigin.x >= 1 && newOrigin.x <= m && newOrigin.y >= 1 && newOrigin.y <= n) {
+                int weight = matrix[newOrigin.x][newOrigin.y];
                 if (weight != 0 && !solCand.key.contains(newOrigin)) {
                     solCand.key.insert(newOrigin);
                     solCand.value += weight;

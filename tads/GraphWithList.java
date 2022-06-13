@@ -1,7 +1,5 @@
 package tads;
 
-import java.util.Iterator;
-
 public class GraphWithList implements Graph {
 
     private Object[] list;
@@ -43,7 +41,7 @@ public class GraphWithList implements Graph {
             if (list != null) {
                 System.out.print("Vertice " + (i + 1) + ": ");
             }
-            Iterator<Pair<Integer, Integer>> it = list.iterator();
+            var it = list.iterator();
             while (it.hasNext()) {
                 int arista = it.next().key;
                 System.out.print((arista + 1) + " -> ");

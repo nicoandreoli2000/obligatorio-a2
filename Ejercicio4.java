@@ -1,4 +1,3 @@
-import java.util.Iterator;
 import tads.*;
 
 public class Ejercicio4 {
@@ -32,7 +31,7 @@ public class Ejercicio4 {
                 int elem = stack.pop();
                 visited[elem] = true;
                 List<Pair<Integer, Integer>> adjs = g.getEdges(elem);
-                Iterator<Pair<Integer, Integer>> it = adjs.iterator();
+                var it = adjs.iterator();
                 while (it.hasNext()) {
                     int edge = it.next().key;
                     if (!visited[edge] && !stacked[edge]) {

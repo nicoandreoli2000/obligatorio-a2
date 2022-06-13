@@ -56,7 +56,7 @@ public class List<T> implements Iterable<T> {
   }
 
   public T get(T elem) throws Exception {
-    Iterator<T> it = iterator();
+    var it = iterator();
     while (it.hasNext()) {
       T data = it.next();
       if (data.equals(elem))

@@ -14,21 +14,8 @@ public class Pair<K, V> {
         this.value = null;
     }
 
-    public K fst() {
-        return key;
-    }
-
-    public V snd() {
-        return value;
-    }
-
     @Override
     public boolean equals(Object other) {
-        return key.equals(((Pair<K, V>) other).key) && value.equals(((Pair<K, V>) other).value);
-    }
-
-    @Override
-    public String toString() {
-        return "(" + this.key.toString() + "," + this.value.toString() + ")";
+        return key.equals(((Pair<K, V>) other).key);
     }
 }
