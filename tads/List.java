@@ -86,14 +86,13 @@ public class List<T> implements Iterable<T> {
   }
 
   @Override
-  public String toString() {
-    Iterator it = new ListIterator(root, size);
-    String res = "";
+  public List<T> clone() {
+    var ret = new List<T>();
+    var it = this.iterator();
     while (it.hasNext()) {
-      res += " -> " + it.next();
+      ret.insert(it.next());
     }
-    return res + " NULL";
-
+    return ret;
   }
 
   private class ListIterator implements Iterator<T> {
