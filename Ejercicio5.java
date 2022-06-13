@@ -1,5 +1,3 @@
-import java.util.Iterator;
-
 import tads.Graph;
 import tads.GraphWithList;
 import tads.List;
@@ -19,7 +17,7 @@ public class Ejercicio5 {
             if (!esConexoSinUnVertice(g, i)) {
                 System.out.println(i + 1);
             }
-            Iterator<Pair<Integer, Integer>> it = list.iterator();
+            var it = list.iterator();
             while (it.hasNext()) {
                 Pair<Integer, Integer> arista = it.next();
                 g.addEdge(i, arista);
@@ -46,7 +44,7 @@ public class Ejercicio5 {
             if (!visited[elem]) {
                 visited[elem] = true;
                 List<Pair<Integer, Integer>> adjs = g.getEdges(elem);
-                Iterator<Pair<Integer, Integer>> it = adjs.iterator();
+                var it = adjs.iterator();
                 while (it.hasNext()) {
                     Pair<Integer, Integer> arista = it.next();
                     if (!visited[arista.key]) {

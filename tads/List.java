@@ -56,7 +56,7 @@ public class List<T> implements Iterable<T> {
   }
 
   public T get(T elem) throws Exception {
-    Iterator<T> it = iterator();
+    var it = iterator();
     while (it.hasNext()) {
       T data = it.next();
       if (data.equals(elem))
@@ -83,6 +83,16 @@ public class List<T> implements Iterable<T> {
   @Override
   public Iterator<T> iterator() {
     return new ListIterator(root, size);
+  }
+
+  @Override
+  public List<T> clone() {
+    var ret = new List<T>();
+    var it = this.iterator();
+    while (it.hasNext()) {
+      ret.insert(it.next());
+    }
+    return ret;
   }
 
   private class ListIterator implements Iterator<T> {
