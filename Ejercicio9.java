@@ -10,9 +10,9 @@ public class Ejercicio9 {
     private static void ejercicio9() {
         Scanner in = new Scanner(System.in);
         int cota = Integer.parseInt(in.nextLine());
-        BigInteger[] memory = new BigInteger[cota];
+        BigInteger[] memory = new BigInteger[cota + 1];
         memory[0] = BigInteger.ONE;
-        for (int i = 1; i < cota; i++) {
+        for (int i = 1; i <= cota; i++) {
             memory[i] = memory[i - 1].multiply(BigInteger.valueOf(i));
         }
         int n = Integer.parseInt(in.nextLine());
