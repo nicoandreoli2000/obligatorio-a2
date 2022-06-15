@@ -9,20 +9,18 @@ public class Ejercicio9 {
 
     private static void ejercicio9() {
         Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
-        BigInteger[] dp = new BigInteger[n + 1];
-        dp[0] = BigInteger.ONE;
-        for (int i = 1; i <= n; i++) {
-            dp[i] = dp[i - 1].multiply(BigInteger.valueOf(i));
+        int cota = Integer.parseInt(in.nextLine());
+        BigInteger[] memory = new BigInteger[cota];
+        memory[0] = BigInteger.ONE;
+        for (int i = 1; i < cota; i++) {
+            memory[i] = memory[i - 1].multiply(BigInteger.valueOf(i));
         }
-        in.nextLine();
-        in.nextLine();
-        while (in.hasNext()) {
-            String line = in.nextLine();
-            String[] arr = line.split(" ");
-            int n1 = Integer.parseInt(arr[0]);
+        int n = Integer.parseInt(in.nextLine());
+        for (int i = 0; i < n; i++) {
+            String[] arr = in.nextLine().split(" ");
+            int p = Integer.parseInt(arr[0]);
             int k = Integer.parseInt(arr[1]);
-            BigInteger res = dp[n1].divide(dp[k].multiply(dp[n1 - k]));
+            BigInteger res = memory[p].divide(memory[k].multiply(memory[p - k]));
             System.out.println(res);
         }
         in.close();
